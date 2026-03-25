@@ -22,7 +22,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: secondbrain
+      POSTGRES_DB: SecondBrain
     networks:
       - sb_ai_network
 

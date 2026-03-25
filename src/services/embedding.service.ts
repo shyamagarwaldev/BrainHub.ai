@@ -1,6 +1,6 @@
 import { ai_client } from "../app";
 
-export async function embedChunks(chunks: string[]): Promise<number[][]> {
+export async function getEmbeddings(chunks: string[]): Promise<number[][]> {
   try {
     const result = await ai_client.embeddings.create({
       input: chunks,
@@ -13,4 +13,9 @@ export async function embedChunks(chunks: string[]): Promise<number[][]> {
     console.error(`Embeddings failed ${error}`);
     throw new Error("Embedding Service Failed");
   }
+}
+
+export async function getEmbedding(chunks: string[]) {
+  const all_chunks = await getEmbeddings(chunks);
+  return all_chunks[0];
 }

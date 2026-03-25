@@ -1,6 +1,5 @@
-import { main } from "bun";
 import { qdrant_client } from "../app";
-import type { VectorDataType } from "../types";
+import type { InsertStatusType, VectorDataType } from "../types";
 
 const COLLECTION_NAME = process.env.COLLECTION_NAME ?? "";
 
@@ -15,7 +14,7 @@ export async function createCollection(embeddings: number[][]) {
 
 export async function insertEmbeddings(
   data: VectorDataType[],
-): Promise<string> {
+): Promise<InsertStatusType> {
   try {
     const response = await qdrant_client.upsert(COLLECTION_NAME, {
       wait: true,
@@ -48,9 +47,10 @@ export async function searchEmbeddings(
   return chunks.map((r) => {
     return {
       score: r.score,
-      text: r.payload?.userId,
-      contentId: r.payload?.contentId,
-      chunkId: r.payload?.chunkId,
+      text: r.payload?.userId as string,
+      contentId: r.payload?.contentId as string,
+      chunkId: r.payload?.chunkId as string,
+      type: r.payload?.type as string,
     };
   });
 }

@@ -1,8 +1,8 @@
 import { YoutubeTranscript, type TranscriptResponse } from "youtube-transcript";
 import { chunking } from "./chunking.service";
-import { embedChunks } from "./embedding.service";
+import { getEmbeddings } from "./embedding.service";
 
-export async function getTranscript(url: string): Promise<string> {
+export async function getYTTranscript(url: string): Promise<string> {
   try {
     const trans = await YoutubeTranscript.fetchTranscript(url);
     const data = trans
@@ -16,7 +16,7 @@ export async function getTranscript(url: string): Promise<string> {
     // const respone = chunking(data, 100);
     // console.log(respone[0]);
     // const chunk: string = respone[0] ?? "";
-    // const embeddings = await embedChunks(respone);
+    // const embeddings = await getEmbeddings(respone);
     // console.log(`chunk : ${chunk} \n\nembeddings ${embeddings}`);
 
     return data;
@@ -26,4 +26,4 @@ export async function getTranscript(url: string): Promise<string> {
   }
 }
 
-getTranscript("https://youtu.be/lYxGYXjfrNI?si=wvHP8iERkRUDqRne");
+// getYTTranscript("https://youtu.be/lYxGYXjfrNI?si=wvHP8iERkRUDqRne");

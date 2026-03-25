@@ -1,4 +1,4 @@
-import { qdrant_client } from "../app";
+import { qdrant_client } from "../db/qdrant";
 import type { InsertStatusType, VectorDataType } from "../types";
 
 const COLLECTION_NAME = process.env.COLLECTION_NAME ?? "";

@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "dev": "bun --bun src/index.ts"
+    "dev": "bun --bun src/index.ts",
+    "worker": "bun --bun src/workers/brain.worker.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -22,8 +23,10 @@
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
     "@qdrant/js-client-rest": "^1.17.0",
+    "@types/cookie-parser": "^1.4.10",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.71.1",
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "ioredis": "^5.10.1",
     "jsonwebtoken": "^9.0.3",

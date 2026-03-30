@@ -1,24 +1,29 @@
 import type { ResponseStatus } from "openai/resources/responses/responses.mjs";
-import { prisma } from "../../db/postgres";
+import { prisma } from "../../db/prisma";
 import ApiError, { BadRequestError, NotFoundError } from "../../utils/ApiError";
 import ApiResponse from "../../utils/ApiResponse";
 import AsyncHandler from "../../utils/AsyncHandler";
-import { processContentService, queryBrainService } from "./brain.service";
 import {
   Role,
   type Conversation,
   type Message,
 } from "../../db/generated/prisma/client";
+import { brainQueue } from "../../queues";
+import { queryBrainService } from "./brain.service";
 
-export const processContent = AsyncHandler(async (req, res, next) => {
+export const addToBrain = AsyncHandler(async (req, res, next) => {
   const { contentId } = req.body;
   if (!contentId) throw new BadRequestError("Content Id is Required");
   const userId = req.info?.id;
-  await processContentService(contentId, userId!);
-  res.status(200).json(
+  await brainQueue.add(
+    "process-content",
+    { contentId, userId },
+    { jobId: contentId },
+  );
+  res.status(202).json(
     new ApiResponse({
-      statusCode: 200,
-      message: "Successfuly added content into ai brain",
+      statusCode: 202,
+      message: "Successfuly added content into processing queue",
       path: req.originalUrl,
     }),
   );

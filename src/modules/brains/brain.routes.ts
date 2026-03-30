@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { addContent, getQuery } from "./brain.controllers";
+import { addToBrain, queryBrain } from "./brain.controllers";
+import { auth } from "../../middlewares/auth.middleware";
 
 const brainRouter = Router();
 
-brainRouter.post("/processContent", addContent);
-brainRouter.post("/processQuery", getQuery);
+brainRouter.use(auth);
+brainRouter.post("/addToBrain", addToBrain);
+brainRouter.post("/queryBrain", queryBrain);
 
 export default brainRouter;

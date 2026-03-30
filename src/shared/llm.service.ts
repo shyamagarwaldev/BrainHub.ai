@@ -1,5 +1,5 @@
 import type { ResponseInput } from "openai/resources/responses/responses.js";
-import { ai_client } from "../lib/openai";
+import { ai_client } from "../integrations/openai";
 import type { ContextType, LLMResponseType } from "../types";
 
 export async function generateAnswer(query: string, context: ContextType) {

@@ -8,7 +8,7 @@ const server = app.listen(PORT, () => {
 async function shutdown(signal: string) {
   console.log(`Received ${signal}. Shutting down...`);
   try {
-    const { prisma } = await import("./db/postgres");
+    const { prisma } = await import("./db/prisma");
     await prisma.$disconnect();
   } catch (err) {
     console.error("Error during Prisma disconnect:", err);

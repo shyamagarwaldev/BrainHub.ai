@@ -1,14 +1,14 @@
-import { prisma } from "../../db/postgres";
+import { prisma } from "../../db/prisma";
 import { ProcessingStatus } from "../../db/generated/prisma/enums";
 import type { VectorDataType } from "../../types";
-import { chunking } from "../../services/chunking.service";
-import { getEmbedding, getEmbeddings } from "../../services/embedding.service";
-import { getYTTranscript } from "../../services/extractor.service";
+import { chunking } from "../../shared/chunking.service";
+import { getEmbedding, getEmbeddings } from "../../shared/embedding.service";
+import { getYTTranscript } from "../../shared/extractor.service";
 import {
   insertEmbeddings,
   searchEmbeddings,
-} from "../../services/vector.service";
-import { generateAnswer } from "../../services/llm.service";
+} from "../../shared/vector.service";
+import { generateAnswer } from "../../shared/llm.service";
 
 export async function processContentService(contentId: string, userId: string) {
   try {

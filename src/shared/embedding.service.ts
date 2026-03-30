@@ -1,4 +1,4 @@
-import { ai_client } from "../lib/openai";
+import { ai_client } from "../integrations/openai";
 
 export async function getEmbeddings(chunks: string[]): Promise<number[][]> {
   try {

@@ -1,5 +1,5 @@
 import * as bcrypt from "bcrypt";
-import { prisma } from "../../db/postgres";
+import { prisma } from "../../db/prisma";
 import ApiResponse from "../../utils/ApiResponse";
 import AsyncHandler from "../../utils/AsyncHandler";
 import ApiError, {
@@ -77,7 +77,7 @@ export const signUp = AsyncHandler(async (req, res) => {
   );
 });
 
-export const loginIn = AsyncHandler(async (req, res) => {
+export const logIn = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const parsedInput = LogInSchema.safeParse({ email, password });
 
@@ -112,5 +112,11 @@ export const loginIn = AsyncHandler(async (req, res) => {
     .cookie("refreshToken", refreshToken, {
       httpOnly: true,
       maxAge: 60 * 1000 * 60 * 24 * 3,
-    });
+    })
+    .json(
+      new ApiResponse({
+        message: "Successfull login",
+        statusCode: 200,
+      }),
+    );
 });

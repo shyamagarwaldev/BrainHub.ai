@@ -2,7 +2,7 @@ import { JsonWebTokenError } from "jsonwebtoken";
 import type { User } from "../db/generated/prisma/client";
 import ApiError, { ServerError } from "./ApiError";
 import jwt from "jsonwebtoken";
-import { prisma } from "../db/postgres";
+import { prisma } from "../db/prisma";
 
 export function generateAccessToken(id: string) {
   const accessToken = jwt.sign(

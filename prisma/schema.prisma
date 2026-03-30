@@ -103,7 +103,7 @@ model Message {
 
   content String
 
-  sources  Json?
+  sources  Json[]
   metadata Json?
 
   createdAt    DateTime     @default(now())

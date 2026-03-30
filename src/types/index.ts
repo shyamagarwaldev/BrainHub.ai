@@ -25,12 +25,14 @@ export interface ApiErrorOptions {
   errors?: any[];
   path?: string;
 }
-export interface ApiResponseOptions<T = unknown> {
+export interface ApiResponseOptions<T = unknown> extends Record<
+  string,
+  unknown
+> {
   statusCode: number;
   data?: T;
   message?: string;
   path?: string;
-  metadata: Record<string, unknown>;
 }
 
 declare module "express-serve-static-core" {
@@ -64,4 +66,9 @@ export interface UserJwtPayload extends JwtPayload {
 export type ErrorDetail = {
   field?: string;
   message: string;
+};
+
+export type LLMResponseType = {
+  output: string;
+  sources: string[];
 };

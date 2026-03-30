@@ -1,26 +1,37 @@
+import { JsonWebTokenError } from "jsonwebtoken";
 import type { User } from "../db/generated/prisma/client";
-import ApiError from "./ApiError";
+import ApiError, { ServerError } from "./ApiError";
+import jwt from "jsonwebtoken";
+import { prisma } from "../db/postgres";
 
-export function generateAccessToken(user: User) {
-  const accessToken = undefined;
+export function generateAccessToken(id: string) {
+  const accessToken = jwt.sign(
+    {
+      id,
+    },
+    process.env.JWT_SECRET!,
+    {
+      expiresIn: 60 * 60 * 24,
+    },
+  );
   if (!accessToken) {
-    throw new ApiError({
-      statusCode: 500,
-      message: "Unable to Create the Access Token",
-    });
+    throw new ServerError("Unable to create access token");
   }
   return accessToken;
 }
 
-export async function generateRefreshToken(user: User) {
-  const refreshToken = undefined;
+export function generateRefreshToken(id: string) {
+  const refreshToken = jwt.sign(
+    {
+      id,
+    },
+    process.env.JWT_SECRET!,
+    {
+      expiresIn: 60 * 60 * 24 * 3,
+    },
+  );
   if (!refreshToken) {
-    throw new ApiError({
-      message: "Unable to Create the Refresh Token",
-      statusCode: 500,
-    });
+    throw new ServerError("unable to create refresh token");
   }
-  user.refreshToken = refreshToken;
-
   return refreshToken;
 }

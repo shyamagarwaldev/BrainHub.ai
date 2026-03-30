@@ -2,23 +2,23 @@ import type { ApiResponseOptions } from "../types";
 
 export default class ApiResponse<T = unknown> {
   statusCode: number;
-  data: T;
+  data?: T;
   message: string;
   success: boolean;
   path?: string;
   metadata?: Record<string, unknown>;
   constructor({
     statusCode,
-    data,
     message = "Success",
+    data,
     path,
-    ...metadata
+    ...props
   }: ApiResponseOptions<T>) {
     this.statusCode = statusCode;
-    this.data = data as T;
+    this.data = (data as T) || undefined;
     this.message = message;
     this.success = statusCode < 400;
-    this.path = path;
-    this.metadata = metadata;
+    this.path = path || undefined;
+    this.metadata = props;
   }
 }

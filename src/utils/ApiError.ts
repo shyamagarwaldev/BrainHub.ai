@@ -1,4 +1,4 @@
-import type { ZodError } from "zod/v3";
+import type { ZodError } from "zod";
 import { type ApiErrorOptions, type ErrorDetail } from "../types";
 
 export default class ApiError extends Error {
@@ -43,19 +43,37 @@ export class BadRequestError extends ApiError {
   }
 }
 export class UnauthorisedRequestError extends ApiError {
-  constructor() {
-    super({ message: "Unauthorized", statusCode: 401 });
+  constructor(message?: string) {
+    super({
+      message: `${message ? message : "Unauthorized"}`,
+      statusCode: 401,
+    });
   }
 }
 
-export function handleZodError(error: ZodError) {
-  const formattedZodError = error.errors.map((err) => ({
+export class ServerError extends ApiError {
+  constructor(message?: string) {
+    super({
+      message: `${message ? message : "Unexpected Server Error"}`,
+      statusCode: 500,
+    });
+  }
+}
+
+export function handleZodError<T>(error: ZodError<T>) {
+  const formattedZodError = error.issues.map((err) => ({
     fields: err.path.join("."),
     message: err.message,
   }));
-  return new ApiError({
+  return {
     message: "Validation Failed",
     statusCode: 400,
     errors: formattedZodError,
-  });
+  };
+}
+
+export class ZodCustomError<T = unknown> extends ApiError {
+  constructor(error: ZodError<T>) {
+    super(handleZodError(error));
+  }
 }

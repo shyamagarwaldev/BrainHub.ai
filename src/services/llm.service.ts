@@ -1,6 +1,6 @@
 import type { ResponseInput } from "openai/resources/responses/responses.js";
-import { ai_client } from "../app";
-import type { ContextType } from "../types";
+import { ai_client } from "../lib/openai";
+import type { ContextType, LLMResponseType } from "../types";
 
 export async function generateAnswer(query: string, context: ContextType) {
   const formattedContext = context
@@ -51,21 +51,21 @@ export async function generateAnswer(query: string, context: ContextType) {
     model: process.env.AI_MODEL!,
     input: messages,
   });
-  console.log(response);
+  // console.log(response);
+  let parsed: LLMResponseType;
+  try {
+    parsed = JSON.parse(response.output_text);
+  } catch {
+    parsed = {
+      output: response.output_text,
+      sources: [],
+    };
+  }
+  console.log(parsed);
 
+  // return parsed;
   return {
     status: response.status,
-    output: response.output_text,
+    response: parsed,
   };
 }
-
-generateAnswer("What is hybrid search and how it helps?", [
-  {
-    type: "notes",
-    text: "Hybrid search combines keyword-based search like BM25 with vector-based semantic search to improve retrieval accuracy.",
-  },
-  {
-    type: "youtube",
-    text: "In RAG systems, hybrid search helps retrieve both exact matches and semantically relevant documents.",
-  },
-]);

@@ -11,14 +11,7 @@ export async function getYTTranscript(url: string): Promise<string> {
       .replace(/\s+/g, " ")
       .replace(/\.{2,}/g, ".")
       .trim();
-    console.log(data);
-
-    // const respone = chunking(data, 100);
-    // console.log(respone[0]);
-    // const chunk: string = respone[0] ?? "";
-    // const embeddings = await getEmbeddings(respone);
-    // console.log(`chunk : ${chunk} \n\nembeddings ${embeddings}`);
-
+    // console.log(data);
     return data;
   } catch (error) {
     console.error(`Transcript Extraction Failed ${error}`);

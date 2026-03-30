@@ -10,7 +10,7 @@ import {
 } from "../../services/vector.service";
 import { generateAnswer } from "../../services/llm.service";
 
-export async function processContent(contentId: string, userId: string) {
+export async function processContentService(contentId: string, userId: string) {
   try {
     let content = await prisma.content.findUnique({
       where: { id: contentId },
@@ -55,7 +55,7 @@ export async function processContent(contentId: string, userId: string) {
     });
     await prisma.content.update({
       where: { id: contentId },
-      data: { status: ProcessingStatus.COMPLETED },
+      data: { status: ProcessingStatus.COMPLETED, isInBrain: true },
     });
   } catch (error: any) {
     await prisma.content.update({
@@ -67,23 +67,27 @@ export async function processContent(contentId: string, userId: string) {
   }
 }
 
-export async function queryBrain(query: string, userId: string) {
+export async function queryBrainService(query: string, userId: string) {
   try {
     const queryVector = await getEmbedding([query]);
 
     const vectorResults = await searchEmbeddings(queryVector!, userId, 3);
+    console.log(vectorResults[0]);
 
-    const chunks = vectorResults.map((vr) => ({
-      text: vr.text,
-      type: vr.type,
+    const uniqueChunks = Array.from(
+      new Map(vectorResults.map((c) => [c.id, c])).values(),
+    );
+
+    const answer = await generateAnswer(query, uniqueChunks);
+    const source = uniqueChunks.map((c) => ({
+      score: c.score,
+      chunkId: c.id,
+      type: c.type,
     }));
-
-    const context = [...new Set(chunks)];
-
-    const answer = await generateAnswer(query, context);
     return {
-      answer,
-      sources: chunks,
+      answer: answer.response.output,
+      sources: source,
+      citedSources: answer.response.sources,
     };
   } catch (error: any) {
     throw error;

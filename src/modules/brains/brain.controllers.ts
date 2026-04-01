@@ -1,4 +1,3 @@
-import type { ResponseStatus } from "openai/resources/responses/responses.mjs";
 import { prisma } from "../../db/prisma";
 import ApiError, { BadRequestError, NotFoundError } from "../../utils/ApiError";
 import ApiResponse from "../../utils/ApiResponse";
@@ -15,11 +14,16 @@ export const addToBrain = AsyncHandler(async (req, res, next) => {
   const { contentId } = req.body;
   if (!contentId) throw new BadRequestError("Content Id is Required");
   const userId = req.info?.id;
-  await brainQueue.add(
-    "process-content",
-    { contentId, userId },
-    { jobId: contentId },
-  );
+  const content = await prisma.content.findUnique({
+    where: { id: contentId, userId: userId },
+    select: {
+      isInBrain: true,
+      status: true,
+    },
+  });
+  if (content && (content.isInBrain || content?.status === "COMPLETED"))
+    throw new BadRequestError("content aleady in ai brain");
+  await brainQueue.add("process-content", { contentId, userId });
   res.status(202).json(
     new ApiResponse({
       statusCode: 202,
@@ -30,8 +34,7 @@ export const addToBrain = AsyncHandler(async (req, res, next) => {
 });
 
 export const queryBrain = AsyncHandler(async (req, res) => {
-  const { contentId, query, conversationId } = req.body;
-  if (!contentId) throw new BadRequestError("Content Id is Required");
+  const { query, conversationId } = req.body;
   const userId = req.info?.id;
   if (!userId) throw new BadRequestError("User Id is Required");
   const response = await queryBrainService(query, userId);

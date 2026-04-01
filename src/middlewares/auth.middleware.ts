@@ -8,7 +8,7 @@ export const auth = AsyncHandler(async (req, res, next) => {
     req.cookies.accessToken ||
     req.headers.authorization?.replace("Bearer ", "");
 
-  if (!token) throw new BadRequestError("Access Token");
+  if (!token) throw new UnauthorisedRequestError("Access token missing");
 
   let verifiedToken: UserJwtPayload;
 
@@ -17,9 +17,11 @@ export const auth = AsyncHandler(async (req, res, next) => {
       token,
       process.env.JWT_SECRET!,
     ) as UserJwtPayload;
-  } catch (err) {
-    throw new UnauthorisedRequestError("Inavaid or expired access token");
+  } catch (err: any) {
+    throw new UnauthorisedRequestError("Invalid or expired access token");
   }
+  if (verifiedToken.type !== "access")
+    throw new UnauthorisedRequestError("Invalid token type");
 
   req.info = verifiedToken;
 

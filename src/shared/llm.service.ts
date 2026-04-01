@@ -69,3 +69,38 @@ export async function generateAnswer(query: string, context: ContextType) {
     response: parsed,
   };
 }
+
+export async function semanticClean(text: string): Promise<string> {
+  try {
+    const prompt = `
+    Convert this noisy transcript into clean, structured technical English.
+    
+    Rules:
+    - Fix incorrect words (e.g., gruffana → Grafana, promise → Prometheus, lucky → Loki)
+    - Remove filler and repetition
+    - Make sentences clear and meaningful
+    - Keep technical concepts intact
+    - DO NOT summarize
+    - Keep it concise but complete
+    
+    Text:
+    """
+    ${text}
+    """
+    `;
+
+    const response = await ai_client.responses.create({
+      model: process.env.AI_MODEL,
+      input: [
+        { role: "system", content: "You are a text cleaning assistant." },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.2,
+    });
+
+    return response.output_text.trim() || "";
+  } catch (err) {
+    console.error("Semantic cleaning service Failed:", err);
+    throw err;
+  }
+}

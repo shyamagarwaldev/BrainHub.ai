@@ -4,35 +4,16 @@ import type { InsertStatusType, VectorDataType } from "../types";
 const COLLECTION_NAME = process.env.COLLECTION_NAME ?? "";
 
 async function ensureCollectionExists(vectorSize: number) {
-  if (!COLLECTION_NAME) {
-    throw new Error("COLLECTION_NAME env var is required");
-  }
-
   try {
     await qdrant_client.getCollection(COLLECTION_NAME);
-    return;
-  } catch (err: any) {
-    const status =
-      typeof err?.status === "number"
-        ? err.status
-        : typeof err?.response?.status === "number"
-          ? err.response.status
-          : undefined;
-
-    // If it's not a "missing collection" error, rethrow.
-    if (status && status !== 404) throw err;
-    if (!status) {
-      const msg = String(err?.message ?? err);
-      if (!/not found|does not exist|404/i.test(msg)) throw err;
-    }
+  } catch {
+    await qdrant_client.createCollection(COLLECTION_NAME, {
+      vectors: {
+        size: vectorSize,
+        distance: "Cosine",
+      },
+    });
   }
-
-  await qdrant_client.createCollection(COLLECTION_NAME, {
-    vectors: {
-      size: vectorSize,
-      distance: "Cosine",
-    },
-  });
 }
 
 export async function createCollection(embeddings: number[][]) {

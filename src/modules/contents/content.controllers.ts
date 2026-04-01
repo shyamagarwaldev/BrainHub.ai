@@ -1,11 +1,12 @@
 import { type Content } from "../../db/generated/prisma/client";
 import { prisma } from "../../db/prisma";
-import { BadRequestError } from "../../utils/ApiError";
+import { BadRequestError, NotFoundError } from "../../utils/ApiError";
 import ApiResponse from "../../utils/ApiResponse";
 import AsyncHandler from "../../utils/AsyncHandler";
 
 export const addContent = AsyncHandler(async (req, res) => {
-  const { url, type, userId } = req.body;
+  const { url, type } = req.body;
+  const userId = req.info?.id!;
   const content = await prisma.content.create({
     data: {
       userId,
@@ -28,7 +29,7 @@ export const checkStatus = AsyncHandler(async (req, res) => {
 
   if (typeof contentId !== "string")
     throw new BadRequestError("contendId must be string only");
-  const content = await prisma.content.findUnique({
+  const content = await prisma.content.findFirst({
     where: { id: contentId },
     select: {
       isInBrain: true,
@@ -36,6 +37,7 @@ export const checkStatus = AsyncHandler(async (req, res) => {
       error: true,
     },
   });
+  if (!content) throw new NotFoundError(`content with id:${contentId}`);
 
   res.status(201).json(
     new ApiResponse<typeof content>({

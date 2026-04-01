@@ -14,7 +14,7 @@ import {
 import {
   generateAccessToken,
   generateRefreshToken,
-} from "../../utils/GenerateTokens";
+} from "../../utils/generateToken";
 
 export const signUp = AsyncHandler(async (req, res) => {
   const { email, username, password }: SignUpSchemaType = req.body;

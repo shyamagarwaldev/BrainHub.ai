@@ -71,7 +71,7 @@ export async function queryBrainService(query: string, userId: string) {
   try {
     const queryVector = await getEmbedding([query]);
 
-    const vectorResults = await searchEmbeddings(queryVector!, userId, 3);
+    const vectorResults = await searchEmbeddings(queryVector!, userId, 6);
     console.log(vectorResults[0]);
 
     const uniqueChunks = Array.from(

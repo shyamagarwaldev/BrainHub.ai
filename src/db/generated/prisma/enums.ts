@@ -12,7 +12,7 @@
 export const ContentType = {
   YOUTUBE: 'YOUTUBE',
   TWITTER: 'TWITTER',
-  ARTICLES: 'ARTICLES',
+  ARTICLE: 'ARTICLE',
   NOTE: 'NOTE'
 } as const
 

@@ -1,17 +1,35 @@
 import { type Content } from "../../db/generated/prisma/client";
 import { prisma } from "../../db/prisma";
-import { BadRequestError, NotFoundError } from "../../utils/ApiError";
+import { AddContentSchema } from "../../schemas/content.zod.schema";
+import {
+  BadRequestError,
+  NotFoundError,
+  ZodCustomError,
+} from "../../utils/ApiError";
 import ApiResponse from "../../utils/ApiResponse";
 import AsyncHandler from "../../utils/AsyncHandler";
 
 export const addContent = AsyncHandler(async (req, res) => {
-  const { url, type } = req.body;
   const userId = req.info?.id!;
+  console.log(req.body);
+
+  const verifiedInput = AddContentSchema.safeParse({
+    url: req.body?.url,
+    rawText: req.body?.rawText,
+    type: req.body?.type,
+    title: req.body?.title,
+  });
+  if (!verifiedInput.success) {
+    throw new ZodCustomError(verifiedInput.error);
+  }
+
   const content = await prisma.content.create({
     data: {
       userId,
-      type,
-      url,
+      type: verifiedInput.data.type,
+      url: verifiedInput.data.url || null,
+      rawContent: verifiedInput.data.rawContent || null,
+      title: verifiedInput.data.title,
     },
   });
 

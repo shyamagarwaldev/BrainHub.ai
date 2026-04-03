@@ -3,6 +3,8 @@ import { prisma } from "../../db/prisma";
 import ApiResponse from "../../utils/ApiResponse";
 import AsyncHandler from "../../utils/AsyncHandler";
 import ApiError, {
+  BadRequestError,
+  NotFoundError,
   UnauthorisedRequestError,
   ZodCustomError,
 } from "../../utils/ApiError";
@@ -121,15 +123,24 @@ export const logIn = AsyncHandler(async (req, res) => {
     );
 });
 
-// export const getUser = AsyncHandler(async (req, res, next) => {
-//   const userId = req.info?.id!;
-//   const user = prisma.user.findFirst({
-//     where: {
-//       id: userId,
-//     },
-//     select: {
-//       username: true,
-//       email: true,
-//     },
-//   });
-// });
+export const getUser = AsyncHandler(async (req, res, next) => {
+  const userId = req.info?.id!;
+  const user = prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+    select: {
+      username: true,
+      email: true,
+    },
+  });
+  if (!user) throw new NotFoundError("user");
+  res.status(200).json(
+    new ApiResponse<typeof user>({
+      statusCode: 200,
+      message: "successfully got user",
+      data: user,
+      path: req.originalUrl,
+    }),
+  );
+});

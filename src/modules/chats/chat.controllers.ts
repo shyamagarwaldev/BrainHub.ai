@@ -90,7 +90,7 @@ export const getAllMessages = AsyncHandler(async (req, res, next) => {
   const userId = req.info?.id!;
   const conversationId = req.params.conversationId;
   if (typeof conversationId !== "string" || !conversationId)
-    throw new BadRequestError("conversation id");
+    throw new BadRequestError("conversation id is required");
   const messages = await prisma.message.findMany({
     where: {
       userId,

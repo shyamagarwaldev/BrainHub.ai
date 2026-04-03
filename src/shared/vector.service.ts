@@ -1,5 +1,5 @@
 import { qdrant_client } from "../db/qdrant";
-import type { InsertStatusType, VectorDataType } from "../types";
+import type { InsertStatusType, PayloadType, VectorDataType } from "../types";
 
 const COLLECTION_NAME = process.env.COLLECTION_NAME ?? "";
 
@@ -59,11 +59,8 @@ export async function searchEmbeddings(
   return chunks.map((r) => {
     return {
       score: r.score,
-      text: r.payload?.text as string,
-      contentId: r.payload?.contentId as string,
-      chunkId: r.payload?.chunkIndex as unknown as string,
-      type: r.payload?.type as string,
-      id: r.id,
+      payload: r.payload as PayloadType,
+      id: r.id as string,
     };
   });
 }

@@ -28,6 +28,7 @@ export type ContentMinAggregateOutputType = {
   id: string | null
   userId: string | null
   type: $Enums.ContentType | null
+  language: string | null
   title: string | null
   url: string | null
   rawContent: string | null
@@ -42,6 +43,7 @@ export type ContentMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   type: $Enums.ContentType | null
+  language: string | null
   title: string | null
   url: string | null
   rawContent: string | null
@@ -56,6 +58,7 @@ export type ContentCountAggregateOutputType = {
   id: number
   userId: number
   type: number
+  language: number
   title: number
   url: number
   rawContent: number
@@ -72,6 +75,7 @@ export type ContentMinAggregateInputType = {
   id?: true
   userId?: true
   type?: true
+  language?: true
   title?: true
   url?: true
   rawContent?: true
@@ -86,6 +90,7 @@ export type ContentMaxAggregateInputType = {
   id?: true
   userId?: true
   type?: true
+  language?: true
   title?: true
   url?: true
   rawContent?: true
@@ -100,6 +105,7 @@ export type ContentCountAggregateInputType = {
   id?: true
   userId?: true
   type?: true
+  language?: true
   title?: true
   url?: true
   rawContent?: true
@@ -187,6 +193,7 @@ export type ContentGroupByOutputType = {
   id: string
   userId: string
   type: $Enums.ContentType
+  language: string | null
   title: string | null
   url: string | null
   rawContent: string | null
@@ -222,6 +229,7 @@ export type ContentWhereInput = {
   id?: Prisma.StringFilter<"Content"> | string
   userId?: Prisma.StringFilter<"Content"> | string
   type?: Prisma.EnumContentTypeFilter<"Content"> | $Enums.ContentType
+  language?: Prisma.StringNullableFilter<"Content"> | string | null
   title?: Prisma.StringNullableFilter<"Content"> | string | null
   url?: Prisma.StringNullableFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableFilter<"Content"> | string | null
@@ -238,6 +246,7 @@ export type ContentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  language?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   url?: Prisma.SortOrderInput | Prisma.SortOrder
   rawContent?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -257,6 +266,7 @@ export type ContentWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ContentWhereInput | Prisma.ContentWhereInput[]
   userId?: Prisma.StringFilter<"Content"> | string
   type?: Prisma.EnumContentTypeFilter<"Content"> | $Enums.ContentType
+  language?: Prisma.StringNullableFilter<"Content"> | string | null
   title?: Prisma.StringNullableFilter<"Content"> | string | null
   url?: Prisma.StringNullableFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableFilter<"Content"> | string | null
@@ -273,6 +283,7 @@ export type ContentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  language?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   url?: Prisma.SortOrderInput | Prisma.SortOrder
   rawContent?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -293,6 +304,7 @@ export type ContentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Content"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Content"> | string
   type?: Prisma.EnumContentTypeWithAggregatesFilter<"Content"> | $Enums.ContentType
+  language?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   title?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   url?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
@@ -306,6 +318,7 @@ export type ContentScalarWhereWithAggregatesInput = {
 export type ContentCreateInput = {
   id?: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -322,6 +335,7 @@ export type ContentUncheckedCreateInput = {
   id?: string
   userId: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -336,6 +350,7 @@ export type ContentUncheckedCreateInput = {
 export type ContentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -352,6 +367,7 @@ export type ContentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -367,6 +383,7 @@ export type ContentCreateManyInput = {
   id?: string
   userId: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -380,6 +397,7 @@ export type ContentCreateManyInput = {
 export type ContentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -394,6 +412,7 @@ export type ContentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -418,6 +437,7 @@ export type ContentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   title?: Prisma.SortOrder
   url?: Prisma.SortOrder
   rawContent?: Prisma.SortOrder
@@ -432,6 +452,7 @@ export type ContentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   title?: Prisma.SortOrder
   url?: Prisma.SortOrder
   rawContent?: Prisma.SortOrder
@@ -446,6 +467,7 @@ export type ContentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   title?: Prisma.SortOrder
   url?: Prisma.SortOrder
   rawContent?: Prisma.SortOrder
@@ -532,6 +554,7 @@ export type ContentUpdateOneRequiredWithoutBrainChunksNestedInput = {
 export type ContentCreateWithoutUserInput = {
   id?: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -546,6 +569,7 @@ export type ContentCreateWithoutUserInput = {
 export type ContentUncheckedCreateWithoutUserInput = {
   id?: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -590,6 +614,7 @@ export type ContentScalarWhereInput = {
   id?: Prisma.StringFilter<"Content"> | string
   userId?: Prisma.StringFilter<"Content"> | string
   type?: Prisma.EnumContentTypeFilter<"Content"> | $Enums.ContentType
+  language?: Prisma.StringNullableFilter<"Content"> | string | null
   title?: Prisma.StringNullableFilter<"Content"> | string | null
   url?: Prisma.StringNullableFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableFilter<"Content"> | string | null
@@ -603,6 +628,7 @@ export type ContentScalarWhereInput = {
 export type ContentCreateWithoutBrainChunksInput = {
   id?: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -618,6 +644,7 @@ export type ContentUncheckedCreateWithoutBrainChunksInput = {
   id?: string
   userId: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -647,6 +674,7 @@ export type ContentUpdateToOneWithWhereWithoutBrainChunksInput = {
 export type ContentUpdateWithoutBrainChunksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -662,6 +690,7 @@ export type ContentUncheckedUpdateWithoutBrainChunksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -675,6 +704,7 @@ export type ContentUncheckedUpdateWithoutBrainChunksInput = {
 export type ContentCreateManyUserInput = {
   id?: string
   type: $Enums.ContentType
+  language?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
@@ -688,6 +718,7 @@ export type ContentCreateManyUserInput = {
 export type ContentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -702,6 +733,7 @@ export type ContentUpdateWithoutUserInput = {
 export type ContentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -716,6 +748,7 @@ export type ContentUncheckedUpdateWithoutUserInput = {
 export type ContentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -761,6 +794,7 @@ export type ContentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   userId?: boolean
   type?: boolean
+  language?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
@@ -778,6 +812,7 @@ export type ContentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   userId?: boolean
   type?: boolean
+  language?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
@@ -793,6 +828,7 @@ export type ContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   userId?: boolean
   type?: boolean
+  language?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
@@ -808,6 +844,7 @@ export type ContentSelectScalar = {
   id?: boolean
   userId?: boolean
   type?: boolean
+  language?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
@@ -818,7 +855,7 @@ export type ContentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "title" | "url" | "rawContent" | "isInBrain" | "status" | "error" | "createdAt" | "updatedAt", ExtArgs["result"]["content"]>
+export type ContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "language" | "title" | "url" | "rawContent" | "isInBrain" | "status" | "error" | "createdAt" | "updatedAt", ExtArgs["result"]["content"]>
 export type ContentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   brainChunks?: boolean | Prisma.Content$brainChunksArgs<ExtArgs>
@@ -841,6 +878,7 @@ export type $ContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     userId: string
     type: $Enums.ContentType
+    language: string | null
     title: string | null
     url: string | null
     rawContent: string | null
@@ -1277,6 +1315,7 @@ export interface ContentFieldRefs {
   readonly id: Prisma.FieldRef<"Content", 'String'>
   readonly userId: Prisma.FieldRef<"Content", 'String'>
   readonly type: Prisma.FieldRef<"Content", 'ContentType'>
+  readonly language: Prisma.FieldRef<"Content", 'String'>
   readonly title: Prisma.FieldRef<"Content", 'String'>
   readonly url: Prisma.FieldRef<"Content", 'String'>
   readonly rawContent: Prisma.FieldRef<"Content", 'String'>

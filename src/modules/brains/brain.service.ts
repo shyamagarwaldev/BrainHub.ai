@@ -1,6 +1,12 @@
 import { prisma } from "../../db/prisma";
 import { ContentType, ProcessingStatus } from "../../db/generated/prisma/enums";
-import type { TweetType, VectorDataType } from "../../types";
+import {
+  PayloadContentType,
+  type TweetType,
+  PlatformType,
+  type PayloadType,
+  type ContextType,
+} from "../../types";
 import { chunking } from "../../shared/chunking.service";
 import { getEmbedding, getEmbeddings } from "../../shared/embedding.service";
 import { getYTTranscript } from "../../shared/extractor.service";
@@ -12,7 +18,47 @@ import { generateAnswer } from "../../shared/llm.service";
 import type { Content } from "../../db/generated/prisma/client";
 import * as cheerio from "cheerio";
 import { extractThread, normalizeTwitterUrl } from "../../utils/twitter";
+import type { ChatType } from "../../types/chat";
 
+function generateCleanChunks(
+  chunks: {
+    score: number;
+    payload: PayloadType;
+    id: string;
+  }[],
+): ContextType {
+  return chunks.map((c) => {
+    switch (c.payload.metadata.contentType) {
+      case PayloadContentType.tweet:
+        return {
+          text: c.payload.text,
+          id: c.id,
+          metadata: {
+            platform: c.payload.metadata.platform,
+            contentType: c.payload.metadata.contentType,
+            title: c.payload.metadata.title,
+            url: c.payload.metadata.url,
+            author: c.payload.metadata.author,
+          },
+        };
+      case PayloadContentType.video:
+        return {
+          text: c.payload.text,
+          id: c.id,
+          metadata: {
+            platform: c.payload.metadata.platform,
+            contentType: c.payload.metadata.contentType,
+            title: c.payload.metadata.title,
+            url: c.payload.metadata.url,
+          },
+        };
+      default:
+        throw new Error(
+          "invalid content type: failed at generate clean chunk funtion",
+        );
+    }
+  });
+}
 export class NitterExtractor {
   constructor(private BaseUrl: string) {}
   async extract(url: string): Promise<Array<TweetType>> {
@@ -76,7 +122,7 @@ export async function processYT(content: Content) {
 
   const embeddings: number[][] = await getEmbeddings(chunks);
 
-  const vectorData: VectorDataType[] = embeddings.map((e, i) => {
+  const vectorData = embeddings.map((e, i) => {
     return {
       id: crypto.randomUUID(),
       vector: e,
@@ -85,8 +131,12 @@ export async function processYT(content: Content) {
         userId: content.userId,
         contentId: content.id,
         text: chunks[i]!,
-        type: content.type,
-        source: content.title,
+        metadata: {
+          contentType: PayloadContentType.video,
+          platform: PlatformType.youtube,
+          url: content.url,
+          title: content.title,
+        },
       },
     };
   });
@@ -119,13 +169,17 @@ export async function processX(content: Content) {
       id: crypto.randomUUID(),
       vector: e,
       payload: {
-        chunkIndex: i,
         userId: content.userId,
         contentId: content.id,
+        chunkIndex: i,
         text: chunks[i]!,
-        type: content.type,
-        source: content.title,
-        author: res.author,
+        metadata: {
+          contentType: PayloadContentType.tweet,
+          platform: PlatformType.twitter,
+          url: content.url,
+          title: content.title,
+          author: res.author,
+        },
       },
     };
   });
@@ -186,27 +240,42 @@ export async function processContentService(contentId: string, userId: string) {
   }
 }
 
-export async function queryBrainService(query: string, userId: string) {
+export async function queryBrainService(
+  query: string,
+  userId: string,
+  history: ChatType,
+) {
   try {
     const queryVector = await getEmbedding([query]);
 
     const vectorResults = await searchEmbeddings(queryVector!, userId, 6);
-    console.log(vectorResults[0]);
 
     const uniqueChunks = Array.from(
       new Map(vectorResults.map((c) => [c.id, c])).values(),
     );
 
-    const answer = await generateAnswer(query, uniqueChunks);
-    const source = uniqueChunks.map((c) => ({
-      score: c.score,
-      chunkId: c.id,
-      type: c.type,
-    }));
+    const cleanChunks = generateCleanChunks(uniqueChunks);
+
+    const answer = await generateAnswer(query, cleanChunks, history);
+    const citedIds = answer.response.sources;
+
+    const filteredSources = uniqueChunks
+      .filter((c) => {
+        return citedIds.includes(c.id);
+      })
+      .map((c) => ({
+        score: c.score,
+        id: c.id,
+        metadata: {
+          title: c.payload.metadata.title,
+          url: c.payload.metadata.url,
+          author: c.payload.metadata.author,
+        },
+      }));
     return {
-      answer: answer.response.output,
-      sources: source,
-      citedSources: answer.response.sources,
+      answer: answer.response?.output,
+      sources: filteredSources,
+      citedSources: answer.response?.sources,
     };
   } catch (error: any) {
     throw error;

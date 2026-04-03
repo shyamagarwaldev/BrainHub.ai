@@ -1,7 +1,11 @@
-export type LLMResponseType = {
-  output: string;
-  sources: string[];
-};
+import type { MetaDataType } from "./";
+
+export type { LLMResponseType } from "../schemas/llmResponse.zod.schema";
+
 export type InsertStatusType = "acknowledged" | "completed" | "wait_timeout";
 
-export type ContextType = { type: string; text: string }[];
+export type ContextType = {
+  metadata: MetaDataType;
+  text: string;
+  id: string;
+}[];

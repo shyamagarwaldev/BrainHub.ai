@@ -120,3 +120,16 @@ export const logIn = AsyncHandler(async (req, res) => {
       }),
     );
 });
+
+// export const getUser = AsyncHandler(async (req, res, next) => {
+//   const userId = req.info?.id!;
+//   const user = prisma.user.findFirst({
+//     where: {
+//       id: userId,
+//     },
+//     select: {
+//       username: true,
+//       email: true,
+//     },
+//   });
+// });

@@ -1,16 +1,16 @@
 export enum PayloadContentType {
-  "tweet",
-  "video",
-  "article",
-  "note",
+  tweet = "tweet",
+  video = "video",
+  article = "article",
+  note = "note",
 }
 
 export enum PlatformType {
-  "twitter",
-  "youtube",
-  "web",
-  "pdf",
-  "notion",
+  twitter = "twitter",
+  youtube = "youtube",
+  web = "web",
+  pdf = "pdf",
+  notion = "notion",
 }
 
 export type MetaDataType = {
@@ -41,5 +41,6 @@ export interface PayloadType extends Record<string, unknown> {
 export type VectorDataType = {
   id: string;
   vector: number[];
+  sparse_vector: number[];
   payload: PayloadType;
 };

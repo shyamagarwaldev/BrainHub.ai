@@ -36,7 +36,7 @@ export async function generateAnswer(
         const m = c.metadata;
 
         return `[${i + 1}]
-  ID: ${i + 1}      
+  ID: ${i}      
   Title: ${m.title ?? "N/A"}
   Author: ${m.author ?? m.channel ?? "N/A"}
   URL: ${m.url ?? "N/A"}
@@ -202,7 +202,7 @@ export async function getTitle(query: string): Promise<string> {
         {
           role: "system",
           content:
-            "You are an AI assistant that generate the most accurate title for the query that the user has given.",
+            "You are an AI assistant that generate the most accurate title for the query that the user has given. keep it short few words not more than that",
         },
         {
           role: "user",

@@ -6,14 +6,11 @@ import {
   PlatformType,
   type PayloadType,
   type ContextType,
+  type VectorDataType,
 } from "../../types";
 import { chunking } from "../../shared/chunking.service";
-import { getEmbedding, getEmbeddings } from "../../shared/embedding.service";
 import { getYTTranscript } from "../../shared/extractor.service";
-import {
-  insertEmbeddings,
-  searchEmbeddings,
-} from "../../shared/vector.service";
+import { hybridSearch, storeChunks } from "../../shared/python.service";
 import { generateAnswer } from "../../shared/llm.service";
 import type { Content } from "../../db/generated/prisma/client";
 import * as cheerio from "cheerio";
@@ -120,17 +117,15 @@ export async function processYT(content: Content) {
 
   const chunks: string[] = chunking(docs);
 
-  const embeddings: number[][] = await getEmbeddings(chunks);
-
-  const vectorData = embeddings.map((e, i) => {
+  // const embeddings: number[][] = await getEmbeddings(chunks);
+  const vectorData = chunks.map((chunk, i) => {
     return {
       id: crypto.randomUUID(),
-      vector: e,
       payload: {
         chunkIndex: i,
         userId: content.userId,
         contentId: content.id,
-        text: chunks[i]!,
+        text: chunk,
         metadata: {
           contentType: PayloadContentType.video,
           platform: PlatformType.youtube,
@@ -140,8 +135,8 @@ export async function processYT(content: Content) {
       },
     };
   });
-
-  await insertEmbeddings(vectorData);
+  // await insertEmbeddings(vectorData);
+  await storeChunks(vectorData);
   await prisma.brainChunk.createMany({
     data: vectorData.map((v) => ({
       qdrantId: v.id,
@@ -161,18 +156,16 @@ export async function processX(content: Content) {
     })
     .join("\n\n");
   const chunks: string[] = chunking(thread);
+  // const embeddings = await getEmbeddings(chunks);
 
-  const embeddings = await getEmbeddings(chunks);
-
-  const vectorData = embeddings.map((e, i) => {
+  const vectorData = chunks.map((chunk, i) => {
     return {
       id: crypto.randomUUID(),
-      vector: e,
       payload: {
         userId: content.userId,
         contentId: content.id,
         chunkIndex: i,
-        text: chunks[i]!,
+        text: chunk,
         metadata: {
           contentType: PayloadContentType.tweet,
           platform: PlatformType.twitter,
@@ -183,7 +176,9 @@ export async function processX(content: Content) {
       },
     };
   });
-  await insertEmbeddings(vectorData);
+  // await insertEmbeddings(vectorData);
+  const re = await storeChunks(vectorData);
+  console.log(re);
   await prisma.brainChunk.createMany({
     data: vectorData.map((v) => ({
       qdrantId: v.id,
@@ -246,9 +241,9 @@ export async function queryBrainService(
   history: ChatType,
 ) {
   try {
-    const queryVector = await getEmbedding([query]);
+    // const queryVector = await getEmbedding([query]);
 
-    const vectorResults = await searchEmbeddings(queryVector!, userId, 6);
+    const vectorResults = await hybridSearch(query, userId, 6);
 
     const uniqueChunks = Array.from(
       new Map(vectorResults.map((c) => [c.id, c])).values(),
@@ -257,13 +252,11 @@ export async function queryBrainService(
     const cleanChunks = generateCleanChunks(uniqueChunks);
 
     const answer = await generateAnswer(query, cleanChunks, history);
-    const citedIds = answer.response.sources;
+    const citedIds = answer.response.ids;
 
-    const filteredSources = uniqueChunks
-      .filter((c) => {
-        return citedIds.includes(c.id);
-      })
-      .map((c) => ({
+    const filteredSources = citedIds.map((i) => {
+      const c = uniqueChunks[i]!;
+      return {
         score: c.score,
         id: c.id,
         metadata: {
@@ -271,7 +264,8 @@ export async function queryBrainService(
           url: c.payload.metadata.url,
           author: c.payload.metadata.author,
         },
-      }));
+      };
+    });
     return {
       answer: answer.response?.output,
       sources: filteredSources,

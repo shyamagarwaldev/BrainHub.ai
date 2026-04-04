@@ -5,8 +5,11 @@
   "private": true,
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "dev": "bun --bun src/index.ts",
-    "worker": "bun --bun src/workers/brain.worker.ts"
+    "worker": "bun --bun src/workers/brain.worker.ts",
+    "start": "bun run start:prod",
+    "start:prod": "bun --bun prisma migrate deploy && bun run server",
+    "server": "bun run src/index.ts",
+    "dev": "bun --bun prisma migrate dev && bun run server"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

@@ -1,0 +1,14 @@
+model User {
+    id            String         @id @default(uuid())
+    email         String         @unique
+    password      String
+    username      String         @unique
+    refreshToken  String?        @unique
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    contents      Content[]
+    conversations Conversation[]
+
+    @@index([email])
+    @@index([username])
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@repo/cache",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./redis": "./src/redis.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "ioredis": "^5.10.1"
+  }
+}

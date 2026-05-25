@@ -1,0 +1,19 @@
+{
+  "name": "@repo/queue",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./bainQueue": "./src/brainQueue/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "@repo/typescript-config": "*",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "bullmq": "^5.77.3"
+  }
+}

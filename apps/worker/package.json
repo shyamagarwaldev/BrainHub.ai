@@ -1,0 +1,21 @@
+{
+  "name": "@repo/worker",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5",
+    "@repo/cache": "*",
+    "@repo/db": "*",
+    "@repo/shared": "*",
+    "@repo/ai": "*",
+    "@repo/vector": "*"
+  },
+  "dependencies": {
+    "bullmq": "^5.77.3"
+  }
+}

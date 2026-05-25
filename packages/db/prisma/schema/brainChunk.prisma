@@ -1,0 +1,13 @@
+model BrainChunk {
+    id        String @id @default(uuid())
+    contentId String
+
+    chunkIndex  Int
+    textPreview String?
+    vectorDBId  String   @unique
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    content     Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+    @@index([contentId])
+}

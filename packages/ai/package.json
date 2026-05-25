@@ -1,0 +1,30 @@
+{
+  "name": "@repo/ai",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./chunking": "./src/chunking/index.ts",
+    "./cleaning": "./src/cleaning/index.ts",
+    "./embedding": "./src/embedding/index.ts",
+    "./extraction": "./src/extraction/index.ts",
+    "./llm": "./src/llm/index.ts",
+    "./search": "./src/search/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@repo/shared": "*",
+    "@repo/vector": "*",
+    "@vitalets/google-translate-api": "^9.2.1",
+    "cheerio": "^1.2.0",
+    "openai": "^6.39.0",
+    "p-limit": "^7.3.0",
+    "youtube-transcript": "^1.3.1"
+  }
+}

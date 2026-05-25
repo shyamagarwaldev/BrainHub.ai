@@ -1,0 +1,24 @@
+{
+  "name": "@repo/shared",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./types": "./src/types/index.ts",
+    "./constants": "./src/constants/index.ts",
+    "./schemas": "./src/schemas/index.ts",
+    "./validation": "./src/validation/index.ts",
+    "./utils": "./src/utils/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@repo/db": "*",
+    "zod": "^4.4.3"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@repo/vector",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./store": "./src/store/index.ts",
+    "./search": "./src/search/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*",
+    "@repo/shared": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "weaviate-client": "^3.13.0"
+  }
+}

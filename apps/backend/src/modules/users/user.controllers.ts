@@ -1,0 +1,147 @@
+import {
+  LogInSchema,
+  SignUpSchema,
+  type SignUpSchemaType,
+} from "@repo/shared/schemas";
+import { AsyncHandler } from "../../lib/AsyncHandler";
+import { ZodCustomError } from "../../lib/zodError";
+import { prisma } from "@repo/db";
+import {
+  ApiError,
+  NotFoundError,
+  UnauthorisedRequestError,
+} from "../../lib/ApiError";
+import { ApiResponse } from "../../lib/ApiResponse";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  hashPasswords,
+  verifyPassword,
+} from "@repo/auth/auth";
+
+export const signUp = AsyncHandler(async (req, res) => {
+  const { email, username, password }: SignUpSchemaType = req.body;
+
+  const {
+    data: verifiedInput,
+    success,
+    error,
+  } = SignUpSchema.safeParse({ email, username, password });
+
+  if (!success) {
+    throw new ZodCustomError(error);
+  }
+
+  const [existingEmailUser, existingUsernameUser] = await Promise.all([
+    prisma.user.findUnique({ where: { email } }),
+    prisma.user.findUnique({ where: { username } }),
+  ]);
+
+  if (existingEmailUser) {
+    throw new ApiError({
+      statusCode: 409,
+      message: "Email is already in use",
+      path: req.originalUrl,
+    });
+  }
+
+  if (existingUsernameUser) {
+    throw new ApiError({
+      statusCode: 409,
+      message: "Username is already in use",
+      path: req.originalUrl,
+    });
+  }
+
+  const hashedPassword = await hashPasswords(verifiedInput.password);
+
+  const user = await prisma.user.create({
+    data: {
+      email: verifiedInput.email,
+      username: verifiedInput.username,
+      password: hashedPassword,
+    },
+    select: {
+      id: true,
+      email: true,
+      username: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  res.status(201).json(
+    new ApiResponse<typeof user>({
+      statusCode: 201,
+      message: "User created successfully",
+      data: user,
+      path: req.originalUrl,
+    }),
+  );
+});
+
+export const logIn = AsyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const parsedInput = LogInSchema.safeParse({ email, password });
+
+  if (!parsedInput.success) {
+    throw new ZodCustomError(parsedInput.error);
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  const comparePassword = await verifyPassword(password, user?.password!);
+
+  if (!comparePassword)
+    throw new UnauthorisedRequestError("Incorrect Password");
+
+  const accessToken = generateAccessToken(user?.id!);
+
+  const refreshToken = generateRefreshToken(user?.id!);
+
+  await prisma.user.update({
+    where: { id: user?.id },
+    data: { refreshToken: refreshToken },
+  });
+
+  res
+    .status(200)
+    .cookie("accessToken", accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 1000 * 60 * 24,
+    })
+    .cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: 60 * 1000 * 60 * 24 * 3,
+    })
+    .json(
+      new ApiResponse({
+        message: "Successfull login",
+        statusCode: 200,
+      }),
+    );
+});
+
+export const getUser = AsyncHandler(async (req, res, next) => {
+  const userId = req.info?.id!;
+  const user = prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+    select: {
+      username: true,
+      email: true,
+    },
+  });
+  if (!user) throw new NotFoundError("user");
+  res.status(200).json(
+    new ApiResponse<typeof user>({
+      statusCode: 200,
+      message: "successfully got user",
+      data: user,
+      path: req.originalUrl,
+    }),
+  );
+});

@@ -16,7 +16,7 @@ export interface PayloadType {
   contentSource: ContentSource;
   url: string | null;
   title: string | null;
-  author?: string; // twitter / article
+  creator?: string; // twitter / article
   channel?: string; // youtube
   tags?: string[];
   createdAt?: string;

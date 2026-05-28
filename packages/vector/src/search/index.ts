@@ -1,10 +1,9 @@
 import { COLLECTION_NAME } from "@repo/shared/constants";
 import w_client from "../client";
 import { db_init } from "../store";
-import type { IWeaviatePayload } from "../types/weaviate";
-import type { PayloadType } from "@repo/shared/types";
+import type { WeaviatePayloadType } from "../types/weaviate";
 
-export async function getTopKVectors(
+export async function getVectors(
   query: string,
   queryVector: number[],
   K: number,
@@ -12,7 +11,7 @@ export async function getTopKVectors(
 ) {
   await db_init();
   const collection =
-    w_client.collections.get<IWeaviatePayload>(COLLECTION_NAME);
+    w_client.collections.get<WeaviatePayloadType>(COLLECTION_NAME);
   // const [bm25Result, semanticResult] = await Promise.all([
   //   collection.query.bm25(query, {
   //     limit: 20,
@@ -20,8 +19,30 @@ export async function getTopKVectors(
   //   }),
   //   collection.query.nearVector(queryVector),
   // ]);
-
-  // reranker and cross-encoding
-  // return top k verctors
-  // return { ...bm25Result.objects, ...semanticResult.objects };
+  // const bm25Object = bm25Result.objects.map((obj) => {
+  //   if (obj.properties) {
+  //     const properties = obj.properties as WeaviatePayloadType;
+  //     if (properties.userId == userId) {
+  //       return {
+  //         id: obj.uuid,
+  //         vector: obj.vectors,
+  //         score: obj.metadata?.score,
+  //         payload: properties,
+  //       };
+  //     }
+  //   }
+  // });
+  // const semanticObject = semanticResult.objects.map((obj) => {
+  //   if (obj.properties) {
+  //     const properties = obj.properties as WeaviatePayloadType;
+  //     if (properties.userId == userId) {
+  //       return {
+  //         id: obj.uuid,
+  //         vector: obj.vectors,
+  //         score: obj.metadata?.score,
+  //         payload: properties,
+  //       };
+  //     }
+  //   }
+  // });
 }

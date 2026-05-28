@@ -17,7 +17,7 @@ export async function xEmbeddingProcess(
         contentSource: ContentSource.X,
         url: content.url,
         title: content.title,
-        creator: content.creator,
+        creator: content.creator!,
       },
       vector: embeddings[i]!,
     };

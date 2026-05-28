@@ -1,9 +1,9 @@
 import { ai_client } from "../client";
-import { OPENAI_MODELS } from "@repo/shared/constants";
+import { AI_MODELS } from "@repo/shared/constants";
 export async function genTitle(query: string): Promise<string> {
   try {
     const response = await ai_client.responses.create({
-      model: OPENAI_MODELS.FAST,
+      model: AI_MODELS.MODEL_1,
       input: [
         {
           role: "system",

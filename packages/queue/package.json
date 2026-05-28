@@ -4,16 +4,21 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./bainQueue": "./src/brainQueue/index.ts"
+    "./bainQueue": "./src/brainQueue/index.ts",
+    "./extractionQueue": "./src/extractionQueue/index.ts",
+    "./embeddingQueue": "./src/embeddingQueue/index.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
   },
   "peerDependencies": {
-    "@repo/typescript-config": "*",
     "typescript": "^5"
   },
   "dependencies": {
-    "bullmq": "^5.77.3"
+    "@repo/cache": "*",
+    "@repo/shared": "*",
+    "bullmq": "^5.77.6",
+    "typescript": "^5"
   }
 }

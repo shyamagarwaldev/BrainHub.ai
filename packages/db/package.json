@@ -3,6 +3,10 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "db:generate": "bunx prisma generate",
+    "db:migrate": "bunx prisma migrate dev"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./enums": "./src/enums.ts",

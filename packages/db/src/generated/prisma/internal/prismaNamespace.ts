@@ -835,12 +835,15 @@ export const ContentScalarFieldEnum = {
   userId: 'userId',
   source: 'source',
   language: 'language',
+  creator: 'creator',
   title: 'title',
   url: 'url',
   rawContent: 'rawContent',
   isInBrain: 'isInBrain',
   status: 'status',
   error: 'error',
+  rawKey: 'rawKey',
+  cleanedKey: 'cleanedKey',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

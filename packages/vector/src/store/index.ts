@@ -32,11 +32,7 @@ export async function db_init() {
         dataType: "text",
       },
       {
-        name: "contentType",
-        dataType: "text",
-      },
-      {
-        name: "platform",
+        name: "contentSource",
         dataType: "text",
       },
       {
@@ -61,7 +57,7 @@ export async function storeManyData(data: IVectorData[]) {
     vector: item.vector,
     properties: item.properties as IWeaviatePayload,
   }));
-  await collection.data.insertMany(weaviateData);
+  return collection.data.insertMany(weaviateData);
 }
 
 export async function storeData(data: IVectorData) {

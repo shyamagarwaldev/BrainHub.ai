@@ -17,10 +17,14 @@ enum ContentSource {
 }
 
 enum ProcessingStatus {
+  EXTRACTING
+  CLEANING
   COMPLETED
-  PROCESSING
+  EMBEDDING
   PENDING
   FAILED
+  PROCESSING
+  EXTRACTED
 }
 
 enum Role {

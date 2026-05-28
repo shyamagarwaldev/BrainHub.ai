@@ -2,7 +2,7 @@ import { prisma } from "@repo/db";
 import { BadRequestError } from "../../lib/ApiError";
 import { AsyncHandler } from "../../lib/AsyncHandler";
 import { ApiResponse } from "../../lib/ApiResponse";
-import { addToBrainQueue } from "@repo/queue/bainQueue";
+import { addToExtractionQueue } from "@repo/queue/extractionQueue";
 export const addToBrain = AsyncHandler(async (req, res, next) => {
   const { contentId } = req.body;
   if (!contentId) throw new BadRequestError("Content Id is Required");
@@ -16,8 +16,7 @@ export const addToBrain = AsyncHandler(async (req, res, next) => {
   });
   if (content && (content.isInBrain || content?.status === "COMPLETED"))
     throw new BadRequestError("content aleady in ai brain");
-  // await brainQueue.add("process-content", { contentId, userId });
-  await addToBrainQueue("process-content", { contentId, userId });
+  await addToExtractionQueue(contentId, { contentId, userId });
   res.status(202).json(
     new ApiResponse({
       statusCode: 202,

@@ -29,12 +29,15 @@ export type ContentMinAggregateOutputType = {
   userId: string | null
   source: $Enums.ContentSource | null
   language: string | null
+  creator: string | null
   title: string | null
   url: string | null
   rawContent: string | null
   isInBrain: boolean | null
   status: $Enums.ProcessingStatus | null
   error: string | null
+  rawKey: string | null
+  cleanedKey: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,12 +47,15 @@ export type ContentMaxAggregateOutputType = {
   userId: string | null
   source: $Enums.ContentSource | null
   language: string | null
+  creator: string | null
   title: string | null
   url: string | null
   rawContent: string | null
   isInBrain: boolean | null
   status: $Enums.ProcessingStatus | null
   error: string | null
+  rawKey: string | null
+  cleanedKey: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,12 +65,15 @@ export type ContentCountAggregateOutputType = {
   userId: number
   source: number
   language: number
+  creator: number
   title: number
   url: number
   rawContent: number
   isInBrain: number
   status: number
   error: number
+  rawKey: number
+  cleanedKey: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -76,12 +85,15 @@ export type ContentMinAggregateInputType = {
   userId?: true
   source?: true
   language?: true
+  creator?: true
   title?: true
   url?: true
   rawContent?: true
   isInBrain?: true
   status?: true
   error?: true
+  rawKey?: true
+  cleanedKey?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -91,12 +103,15 @@ export type ContentMaxAggregateInputType = {
   userId?: true
   source?: true
   language?: true
+  creator?: true
   title?: true
   url?: true
   rawContent?: true
   isInBrain?: true
   status?: true
   error?: true
+  rawKey?: true
+  cleanedKey?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -106,12 +121,15 @@ export type ContentCountAggregateInputType = {
   userId?: true
   source?: true
   language?: true
+  creator?: true
   title?: true
   url?: true
   rawContent?: true
   isInBrain?: true
   status?: true
   error?: true
+  rawKey?: true
+  cleanedKey?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -194,12 +212,15 @@ export type ContentGroupByOutputType = {
   userId: string
   source: $Enums.ContentSource
   language: string | null
+  creator: string | null
   title: string | null
   url: string | null
   rawContent: string | null
   isInBrain: boolean
   status: $Enums.ProcessingStatus
   error: string | null
+  rawKey: string | null
+  cleanedKey: string | null
   createdAt: Date
   updatedAt: Date
   _count: ContentCountAggregateOutputType | null
@@ -230,12 +251,15 @@ export type ContentWhereInput = {
   userId?: Prisma.StringFilter<"Content"> | string
   source?: Prisma.EnumContentSourceFilter<"Content"> | $Enums.ContentSource
   language?: Prisma.StringNullableFilter<"Content"> | string | null
+  creator?: Prisma.StringNullableFilter<"Content"> | string | null
   title?: Prisma.StringNullableFilter<"Content"> | string | null
   url?: Prisma.StringNullableFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableFilter<"Content"> | string | null
   isInBrain?: Prisma.BoolFilter<"Content"> | boolean
   status?: Prisma.EnumProcessingStatusFilter<"Content"> | $Enums.ProcessingStatus
   error?: Prisma.StringNullableFilter<"Content"> | string | null
+  rawKey?: Prisma.StringNullableFilter<"Content"> | string | null
+  cleanedKey?: Prisma.StringNullableFilter<"Content"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Content"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Content"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -247,12 +271,15 @@ export type ContentOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   source?: Prisma.SortOrder
   language?: Prisma.SortOrderInput | Prisma.SortOrder
+  creator?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   url?: Prisma.SortOrderInput | Prisma.SortOrder
   rawContent?: Prisma.SortOrderInput | Prisma.SortOrder
   isInBrain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
+  rawKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  cleanedKey?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -267,12 +294,15 @@ export type ContentWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Content"> | string
   source?: Prisma.EnumContentSourceFilter<"Content"> | $Enums.ContentSource
   language?: Prisma.StringNullableFilter<"Content"> | string | null
+  creator?: Prisma.StringNullableFilter<"Content"> | string | null
   title?: Prisma.StringNullableFilter<"Content"> | string | null
   url?: Prisma.StringNullableFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableFilter<"Content"> | string | null
   isInBrain?: Prisma.BoolFilter<"Content"> | boolean
   status?: Prisma.EnumProcessingStatusFilter<"Content"> | $Enums.ProcessingStatus
   error?: Prisma.StringNullableFilter<"Content"> | string | null
+  rawKey?: Prisma.StringNullableFilter<"Content"> | string | null
+  cleanedKey?: Prisma.StringNullableFilter<"Content"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Content"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Content"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -284,12 +314,15 @@ export type ContentOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   source?: Prisma.SortOrder
   language?: Prisma.SortOrderInput | Prisma.SortOrder
+  creator?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   url?: Prisma.SortOrderInput | Prisma.SortOrder
   rawContent?: Prisma.SortOrderInput | Prisma.SortOrder
   isInBrain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
+  rawKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  cleanedKey?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ContentCountOrderByAggregateInput
@@ -305,12 +338,15 @@ export type ContentScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Content"> | string
   source?: Prisma.EnumContentSourceWithAggregatesFilter<"Content"> | $Enums.ContentSource
   language?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
+  creator?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   title?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   url?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   isInBrain?: Prisma.BoolWithAggregatesFilter<"Content"> | boolean
   status?: Prisma.EnumProcessingStatusWithAggregatesFilter<"Content"> | $Enums.ProcessingStatus
   error?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
+  rawKey?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
+  cleanedKey?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Content"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Content"> | Date | string
 }
@@ -319,12 +355,15 @@ export type ContentCreateInput = {
   id?: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutContentsInput
@@ -336,12 +375,15 @@ export type ContentUncheckedCreateInput = {
   userId: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   brainChunks?: Prisma.BrainChunkUncheckedCreateNestedManyWithoutContentInput
@@ -351,12 +393,15 @@ export type ContentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
@@ -368,12 +413,15 @@ export type ContentUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   brainChunks?: Prisma.BrainChunkUncheckedUpdateManyWithoutContentNestedInput
@@ -384,12 +432,15 @@ export type ContentCreateManyInput = {
   userId: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -398,12 +449,15 @@ export type ContentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -413,12 +467,15 @@ export type ContentUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -433,12 +490,15 @@ export type ContentCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   source?: Prisma.SortOrder
   language?: Prisma.SortOrder
+  creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
   url?: Prisma.SortOrder
   rawContent?: Prisma.SortOrder
   isInBrain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   error?: Prisma.SortOrder
+  rawKey?: Prisma.SortOrder
+  cleanedKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -448,12 +508,15 @@ export type ContentMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   source?: Prisma.SortOrder
   language?: Prisma.SortOrder
+  creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
   url?: Prisma.SortOrder
   rawContent?: Prisma.SortOrder
   isInBrain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   error?: Prisma.SortOrder
+  rawKey?: Prisma.SortOrder
+  cleanedKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -463,12 +526,15 @@ export type ContentMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   source?: Prisma.SortOrder
   language?: Prisma.SortOrder
+  creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
   url?: Prisma.SortOrder
   rawContent?: Prisma.SortOrder
   isInBrain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   error?: Prisma.SortOrder
+  rawKey?: Prisma.SortOrder
+  cleanedKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -555,12 +621,15 @@ export type ContentCreateWithoutBrainChunksInput = {
   id?: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutContentsInput
@@ -571,12 +640,15 @@ export type ContentUncheckedCreateWithoutBrainChunksInput = {
   userId: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -601,12 +673,15 @@ export type ContentUpdateWithoutBrainChunksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
@@ -617,12 +692,15 @@ export type ContentUncheckedUpdateWithoutBrainChunksInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -631,12 +709,15 @@ export type ContentCreateWithoutUserInput = {
   id?: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   brainChunks?: Prisma.BrainChunkCreateNestedManyWithoutContentInput
@@ -646,12 +727,15 @@ export type ContentUncheckedCreateWithoutUserInput = {
   id?: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   brainChunks?: Prisma.BrainChunkUncheckedCreateNestedManyWithoutContentInput
@@ -691,12 +775,15 @@ export type ContentScalarWhereInput = {
   userId?: Prisma.StringFilter<"Content"> | string
   source?: Prisma.EnumContentSourceFilter<"Content"> | $Enums.ContentSource
   language?: Prisma.StringNullableFilter<"Content"> | string | null
+  creator?: Prisma.StringNullableFilter<"Content"> | string | null
   title?: Prisma.StringNullableFilter<"Content"> | string | null
   url?: Prisma.StringNullableFilter<"Content"> | string | null
   rawContent?: Prisma.StringNullableFilter<"Content"> | string | null
   isInBrain?: Prisma.BoolFilter<"Content"> | boolean
   status?: Prisma.EnumProcessingStatusFilter<"Content"> | $Enums.ProcessingStatus
   error?: Prisma.StringNullableFilter<"Content"> | string | null
+  rawKey?: Prisma.StringNullableFilter<"Content"> | string | null
+  cleanedKey?: Prisma.StringNullableFilter<"Content"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Content"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Content"> | Date | string
 }
@@ -705,12 +792,15 @@ export type ContentCreateManyUserInput = {
   id?: string
   source: $Enums.ContentSource
   language?: string | null
+  creator?: string | null
   title?: string | null
   url?: string | null
   rawContent?: string | null
   isInBrain?: boolean
   status?: $Enums.ProcessingStatus
   error?: string | null
+  rawKey?: string | null
+  cleanedKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -719,12 +809,15 @@ export type ContentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   brainChunks?: Prisma.BrainChunkUpdateManyWithoutContentNestedInput
@@ -734,12 +827,15 @@ export type ContentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   brainChunks?: Prisma.BrainChunkUncheckedUpdateManyWithoutContentNestedInput
@@ -749,12 +845,15 @@ export type ContentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumContentSourceFieldUpdateOperationsInput | $Enums.ContentSource
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rawContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isInBrain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cleanedKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -795,12 +894,15 @@ export type ContentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   userId?: boolean
   source?: boolean
   language?: boolean
+  creator?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
   isInBrain?: boolean
   status?: boolean
   error?: boolean
+  rawKey?: boolean
+  cleanedKey?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -813,12 +915,15 @@ export type ContentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   userId?: boolean
   source?: boolean
   language?: boolean
+  creator?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
   isInBrain?: boolean
   status?: boolean
   error?: boolean
+  rawKey?: boolean
+  cleanedKey?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -829,12 +934,15 @@ export type ContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   userId?: boolean
   source?: boolean
   language?: boolean
+  creator?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
   isInBrain?: boolean
   status?: boolean
   error?: boolean
+  rawKey?: boolean
+  cleanedKey?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -845,17 +953,20 @@ export type ContentSelectScalar = {
   userId?: boolean
   source?: boolean
   language?: boolean
+  creator?: boolean
   title?: boolean
   url?: boolean
   rawContent?: boolean
   isInBrain?: boolean
   status?: boolean
   error?: boolean
+  rawKey?: boolean
+  cleanedKey?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "source" | "language" | "title" | "url" | "rawContent" | "isInBrain" | "status" | "error" | "createdAt" | "updatedAt", ExtArgs["result"]["content"]>
+export type ContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "source" | "language" | "creator" | "title" | "url" | "rawContent" | "isInBrain" | "status" | "error" | "rawKey" | "cleanedKey" | "createdAt" | "updatedAt", ExtArgs["result"]["content"]>
 export type ContentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   brainChunks?: boolean | Prisma.Content$brainChunksArgs<ExtArgs>
@@ -879,12 +990,15 @@ export type $ContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     userId: string
     source: $Enums.ContentSource
     language: string | null
+    creator: string | null
     title: string | null
     url: string | null
     rawContent: string | null
     isInBrain: boolean
     status: $Enums.ProcessingStatus
     error: string | null
+    rawKey: string | null
+    cleanedKey: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["content"]>
@@ -1316,12 +1430,15 @@ export interface ContentFieldRefs {
   readonly userId: Prisma.FieldRef<"Content", 'String'>
   readonly source: Prisma.FieldRef<"Content", 'ContentSource'>
   readonly language: Prisma.FieldRef<"Content", 'String'>
+  readonly creator: Prisma.FieldRef<"Content", 'String'>
   readonly title: Prisma.FieldRef<"Content", 'String'>
   readonly url: Prisma.FieldRef<"Content", 'String'>
   readonly rawContent: Prisma.FieldRef<"Content", 'String'>
   readonly isInBrain: Prisma.FieldRef<"Content", 'Boolean'>
   readonly status: Prisma.FieldRef<"Content", 'ProcessingStatus'>
   readonly error: Prisma.FieldRef<"Content", 'String'>
+  readonly rawKey: Prisma.FieldRef<"Content", 'String'>
+  readonly cleanedKey: Prisma.FieldRef<"Content", 'String'>
   readonly createdAt: Prisma.FieldRef<"Content", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Content", 'DateTime'>
 }

@@ -31,7 +31,7 @@ export async function processContentService(contentId: string, userId: string) {
       //   await processNote(content);
       //   break;
       default:
-        throw new Error("Invalid Content Type");
+        throw new Error("Invalid Content Source");
     }
     const re = await storeManyData(data);
     console.log(re);

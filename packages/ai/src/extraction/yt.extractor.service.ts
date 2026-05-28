@@ -1,15 +1,15 @@
 import { YoutubeTranscript } from "youtube-transcript";
-import { cleanText } from "../cleaning/cleanText.service";
-import { translateToEng } from "../cleaning/translate.service";
 
 //youtube
-export async function getYTTranscript(url: string): Promise<string> {
+export async function getYTTranscript(
+  url: string,
+): Promise<{ data: string; language: string }> {
   try {
     const trans = await YoutubeTranscript.fetchTranscript(url);
     if (!trans.length) {
       throw new Error("No transcript available for this video");
     }
-    const language = trans[0]?.lang;
+    const language = trans[0]?.lang || "uknown";
     let data = trans
       .map((obj) => obj.text)
       .join(" ")
@@ -17,10 +17,7 @@ export async function getYTTranscript(url: string): Promise<string> {
       .replace(/\.{2,}/g, ".")
       .trim();
 
-    if (language && language !== "en") {
-      data = await translateToEng(data, language);
-    }
-    return cleanText(data);
+    return { data, language };
   } catch (error) {
     let message = error instanceof Error ? error.message : String(error);
     console.error(

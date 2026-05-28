@@ -1,8 +1,9 @@
 import { Worker } from "bullmq";
+import { QueueCollection } from "@repo/shared/constants";
 import { redis } from "@repo/cache/redis";
-import { processContentService } from "./services/processContent";
+import { processContentService } from "../services/ingestion/processContent";
 const worker = new Worker(
-  "brain-queue",
+  QueueCollection.INGESTION,
   async (job) => {
     const { contentId, userId } = job.data;
     console.log("🚀 Processing:", contentId);
@@ -10,7 +11,7 @@ const worker = new Worker(
   },
   {
     connection: redis,
-    concurrency: 3,
+    concurrency: 1,
   },
 );
 

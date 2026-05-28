@@ -9,7 +9,7 @@ import type {
 } from "openai/resources/responses/responses.mjs";
 import { generateAnswerPrompt } from "../prompts/genAnswer.prompt";
 import { ai_client } from "../client";
-import { OPENAI_MODELS } from "@repo/shared/constants";
+import { AI_MODELS } from "@repo/shared/constants";
 import { zodTextFormat } from "openai/helpers/zod.js";
 import { LLMResponseSchema } from "@repo/shared/schemas";
 
@@ -73,7 +73,7 @@ export async function generateAnswer(
     ];
 
     const response = await ai_client.responses.parse({
-      model: OPENAI_MODELS.REASONING,
+      model: AI_MODELS.MODEL_1,
       input: messages,
       temperature: 0.2,
       text: {

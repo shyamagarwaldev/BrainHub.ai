@@ -10,10 +10,10 @@ export async function cleanText(rawText: string): Promise<string> {
     const cleanedBlocks = await Promise.all(
       blocks.map((block) => concurrencyLimit(() => semanticClean(block))),
     );
-
     return cleanedBlocks.join(" ");
-  } catch (err) {
-    console.error("cleaning service failed:", err);
-    throw new Error("cleaning service failed");
+  } catch (error) {
+    let message = error instanceof Error ? error.message : String(error);
+    console.error(`Text Cleaning Service Failed with Error: ${message}`);
+    throw new Error(`Text Cleaning Service Failed with Error: ${message}`);
   }
 }

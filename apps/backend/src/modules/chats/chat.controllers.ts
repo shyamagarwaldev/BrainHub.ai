@@ -11,6 +11,22 @@ import { ApiResponse } from "../../lib/ApiResponse";
 import { Role } from "@repo/db/enums";
 import { queryBrainService } from "../../services/rag/queryBrain";
 
+export const answerQuery = AsyncHandler(async (req, res) => {
+  const { query } = req.body;
+  const userId = req.info?.id as string;
+  const response = await queryBrainService(query, userId);
+
+  res.status(200).json(
+    new ApiResponse({
+      statusCode: 200,
+      message: "Succesfully answerd the query",
+      data: {
+        response,
+      },
+    }),
+  );
+});
+
 // export const sendMessage = AsyncHandler(async (req, res) => {
 //   const { query, conversationId } = req.body;
 //   const userId = req.info?.id!;

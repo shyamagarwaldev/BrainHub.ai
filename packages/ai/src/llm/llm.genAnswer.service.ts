@@ -16,7 +16,7 @@ import { LLMResponseSchema } from "@repo/shared/schemas";
 export async function generateAnswer(
   query: string,
   context: ContextType,
-  history: ChatType,
+  // history: ChatType,
 ): Promise<{
   status: ResponseStatus;
   response: LLMResponseType;
@@ -42,7 +42,7 @@ export async function generateAnswer(
         return `[${i + 1}]
   ID: ${i}      
   Title: ${m.title ?? "N/A"}
-  Author: ${m.author ?? m.channel ?? "N/A"}
+  Creator: ${m.creator ?? "N/A"}
   URL: ${m.url ?? "N/A"}
   
   Content:

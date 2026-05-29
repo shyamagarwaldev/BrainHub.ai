@@ -24,6 +24,7 @@
     "@repo/queue": "*",
     "@repo/shared": "*",
     "cookie-parser": "^1.4.7",
+    "@repo/vector": "*",
     "express": "^5.2.1"
   }
 }

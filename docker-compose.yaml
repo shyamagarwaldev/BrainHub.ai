@@ -1,12 +1,4 @@
 services:
-  reranker-transformer:
-    image: semitechnologies/reranker-transformers:cross-encoder-ms-marco-MiniLM-L-6-v2-latest
-    ports:
-      - 8090:8080
-    environment:
-      ENABLE_CUDA: 0
-    networks:
-      - network.brainhub.ai
   embedding-worker:
     build:
       context: .
@@ -17,9 +9,14 @@ services:
     networks:
       - network.brainhub.ai
     depends_on:
-      - postgres
-      - valkey
-      - weaviate
+      weaviate:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+      valkey:
+        condition: service_started
+      reranker-transformers:
+        condition: service_started
   extraction-worker:
     build:
       context: .
@@ -53,6 +50,18 @@ services:
     networks:
       - network.brainhub.ai
   weaviate:
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "-q",
+          "http://localhost:8080/v1/.well-known/ready",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     command:
       - --host
       - 0.0.0.0
@@ -68,11 +77,18 @@ services:
       - weaviate_data:/var/lib/weaviate
     restart: on-failure:0
     environment:
+      ENABLE_MODULES: reranker-transformers
       RERANKER_INFERENCE_API: http://reranker-transformers:8080
       QUERY_DEFAULTS_LIMIT: 25
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
       PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
       CLUSTER_HOSTNAME: "node1"
+    networks:
+      - network.brainhub.ai
+  reranker-transformers:
+    image: cr.weaviate.io/semitechnologies/reranker-transformers:cross-encoder-ms-marco-MiniLM-L-6-v2
+    environment:
+      ENABLE_CUDA: 0
     networks:
       - network.brainhub.ai
   backend:
@@ -88,9 +104,14 @@ services:
       - /app/node_modules
     command: bun run dev --filter=@repo/backend
     depends_on:
-      - postgres
-      - weaviate
-      - valkey
+      weaviate:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+      valkey:
+        condition: service_started
+      reranker-transformers:
+        condition: service_started
     networks:
       - network.brainhub.ai
 volumes:

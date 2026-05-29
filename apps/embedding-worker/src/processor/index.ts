@@ -8,7 +8,7 @@ const embeddingWorker = new Worker(
   QueueCollection.EMBEDDING,
   async (job) => {
     const { contentId } = job.data;
-    console.log("🚀 Extracting:", contentId);
+    console.log("🚀 Embedding:", contentId);
     await embedding(contentId);
   },
   {

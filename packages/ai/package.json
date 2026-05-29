@@ -9,7 +9,7 @@
     "./embedding": "./src/embedding/index.ts",
     "./extraction": "./src/extraction/index.ts",
     "./llm": "./src/llm/index.ts",
-    "./search": "./src/search/index.ts"
+    "./rerank": "./src/rerank/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -22,6 +22,7 @@
     "@repo/shared": "*",
     "@repo/vector": "*",
     "@vitalets/google-translate-api": "^9.2.1",
+    "axios": "^1.16.1",
     "cheerio": "^1.2.0",
     "openai": "^6.39.0",
     "p-limit": "^7.3.0",

@@ -3,6 +3,7 @@ import { BadRequestError } from "../../lib/ApiError";
 import { AsyncHandler } from "../../lib/AsyncHandler";
 import { ApiResponse } from "../../lib/ApiResponse";
 import { addToExtractionQueue } from "@repo/queue/extractionQueue";
+import { ProcessingStatus } from "@repo/db/enums";
 export const addToBrain = AsyncHandler(async (req, res, next) => {
   const { contentId } = req.body;
   if (!contentId) throw new BadRequestError("Content Id is Required");
@@ -17,6 +18,14 @@ export const addToBrain = AsyncHandler(async (req, res, next) => {
   if (content && (content.isInBrain || content?.status === "COMPLETED"))
     throw new BadRequestError("content aleady in ai brain");
   await addToExtractionQueue(contentId, { contentId, userId });
+  await prisma.content.update({
+    where: {
+      id: contentId,
+    },
+    data: {
+      status: ProcessingStatus.PROCESSING,
+    },
+  });
   res.status(202).json(
     new ApiResponse({
       statusCode: 202,

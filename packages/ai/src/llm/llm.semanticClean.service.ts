@@ -1,12 +1,12 @@
 import { ai_client } from "../client";
 import { cleanTextPrompt } from "../prompts/textClean.prompt";
-import { OPENAI_MODELS } from "@repo/shared/constants";
+import { AI_MODELS } from "@repo/shared/constants";
 export async function semanticClean(text: string): Promise<string> {
   try {
     const prompt = cleanTextPrompt(text);
 
     const response = await ai_client.responses.create({
-      model: OPENAI_MODELS.FAST,
+      model: AI_MODELS.MODEL_1,
       input: [
         { role: "system", content: "You are a text cleaning assistant." },
         { role: "user", content: prompt },

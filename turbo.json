@@ -2,10 +2,17 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": false
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -15,7 +22,18 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "passThroughEnv": [
+        "AWS_SECRET_ACCESS_KEY",
+        "S3_BUCKET",
+        "AWS_REGION",
+        "AWS_ACCESS_KEY_ID",
+        "OPENROUTER_API_KEY",
+        "DATABASE_URL",
+        "REDIS_URL",
+        "BASE_URL",
+        "JWT_SECRET"
+      ]
     }
   }
 }

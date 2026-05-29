@@ -22,10 +22,14 @@ export type ContentSource = (typeof ContentSource)[keyof typeof ContentSource]
 
 
 export const ProcessingStatus = {
+  EXTRACTING: 'EXTRACTING',
+  CLEANING: 'CLEANING',
   COMPLETED: 'COMPLETED',
-  PROCESSING: 'PROCESSING',
+  EMBEDDING: 'EMBEDDING',
   PENDING: 'PENDING',
-  FAILED: 'FAILED'
+  FAILED: 'FAILED',
+  PROCESSING: 'PROCESSING',
+  EXTRACTED: 'EXTRACTED'
 } as const
 
 export type ProcessingStatus = (typeof ProcessingStatus)[keyof typeof ProcessingStatus]

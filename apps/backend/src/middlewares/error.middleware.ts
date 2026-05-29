@@ -1,5 +1,5 @@
-import { ApiError } from "@repo/shared/api";
 import { type NextFunction, type Request, type Response } from "express";
+import { ApiError } from "../lib/ApiError";
 
 function ErrorMiddleware(
   err: unknown,

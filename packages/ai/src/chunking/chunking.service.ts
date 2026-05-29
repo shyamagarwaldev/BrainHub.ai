@@ -37,7 +37,8 @@ export function chunking(
     chunk.length > 0 ? all_chunks.push(chunk.join(" ")) : undefined;
     return all_chunks;
   } catch (error) {
-    console.error(`Chunking failed ${error}`);
-    throw new Error("Chunking Service Failed");
+    let message = error instanceof Error ? error.message : String(error);
+    console.error(`Chunking Service Failed with Error: ${message}`);
+    throw new Error(`Chunking Service Failed with Error: ${message}`);
   }
 }

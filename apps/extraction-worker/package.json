@@ -1,0 +1,25 @@
+{
+  "name": "@repo/extraction-worker",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun --watch ./src/processor/extraction.processor.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@repo/ai": "*",
+    "@repo/cache": "*",
+    "@repo/db": "*",
+    "@repo/queue": "*",
+    "@repo/shared": "*",
+    "@repo/storage": "*",
+    "bullmq": "^5.77.3"
+  }
+}

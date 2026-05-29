@@ -18,7 +18,7 @@ export function generateCleanChunks(
             contentSource: c.payload.contentSource,
             title: c.payload.title,
             url: c.payload.url,
-            author: c.payload.author,
+            creator: c.payload.creator,
           },
         };
       case ContentSource.YOUTUBE:

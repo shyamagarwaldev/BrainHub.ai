@@ -1,0 +1,51 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+dist
+**/dist
+.next
+**/.next
+build
+**/build
+
+# Turbo
+.turbo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor
+.DS_Store
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# Environment
+**/.env
+**/.env.*
+!.env.example
+**/.env.example
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# Coverage
+coverage
+**/coverage
+
+# Temp
+tmp
+temp
+.cache
+
+# Prisma generated files
+packages/db/src/generated/prisma

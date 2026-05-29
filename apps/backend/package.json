@@ -3,6 +3,11 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun --watch ./src/index.ts",
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun",
+    "start": "bun ./dist/index.js"
+  },
   "devDependencies": {
     "@repo/typescript-config": "*",
     "@types/bun": "latest",
@@ -10,16 +15,16 @@
     "@types/cookie-parser": "^1.4.10"
   },
   "peerDependencies": {
-    "typescript": "^5",
-    "@repo/db": "*",
-    "@repo/ai": "*",
-    "@repo/queue": "*"
+    "typescript": "^5"
   },
   "dependencies": {
+    "@repo/ai": "*",
     "@repo/auth": "*",
-    "@repo/cache": "*",
+    "@repo/db": "*",
+    "@repo/queue": "*",
     "@repo/shared": "*",
     "cookie-parser": "^1.4.7",
+    "@repo/vector": "*",
     "express": "^5.2.1"
   }
 }

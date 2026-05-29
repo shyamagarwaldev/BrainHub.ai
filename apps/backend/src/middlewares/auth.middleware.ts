@@ -1,5 +1,7 @@
 import { verifyToken } from "@repo/auth/auth";
-import { AsyncHandler, UnauthorisedRequestError } from "@repo/shared/api";
+import { AsyncHandler } from "../lib/AsyncHandler";
+import { UnauthorisedRequestError } from "../lib/ApiError";
+
 export const auth = AsyncHandler(async (req, res, next) => {
   const token: string =
     req.cookies.accessToken ||

@@ -1,21 +1,26 @@
 {
-  "name": "@repo/worker",
+  "name": "@repo/embedding-worker",
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun --watch ./src/processor/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@repo/typescript-config": "*"
   },
   "peerDependencies": {
-    "typescript": "^5",
-    "@repo/cache": "*",
-    "@repo/db": "*",
-    "@repo/shared": "*",
-    "@repo/ai": "*",
-    "@repo/vector": "*"
+    "typescript": "^5"
   },
   "dependencies": {
+    "@repo/ai": "*",
+    "@repo/cache": "*",
+    "@repo/db": "*",
+    "@repo/queue": "*",
+    "@repo/shared": "*",
+    "@repo/storage": "*",
+    "@repo/vector": "*",
     "bullmq": "^5.77.3"
   }
 }

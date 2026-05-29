@@ -1,3 +1,6 @@
 import { Queue } from "bullmq";
-
-export const brainQueue = new Queue("brain-queue");
+import { QueueCollection } from "@repo/shared/constants";
+import { redis } from "@repo/cache/redis";
+export const brainQueue = new Queue(QueueCollection.INGESTION, {
+  connection: redis as any,
+});

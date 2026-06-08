@@ -2,8 +2,7 @@ import { Worker } from "bullmq";
 import { QueueCollection } from "@repo/shared/constants";
 import { redis } from "@repo/cache/redis";
 import { embedding } from "../service/embedding";
-console.log(process.env.BASE_URL);
-console.log(process.env.OPENROUTER_API_KEY);
+
 const embeddingWorker = new Worker(
   QueueCollection.EMBEDDING,
   async (job) => {

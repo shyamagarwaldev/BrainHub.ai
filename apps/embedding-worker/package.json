@@ -1,5 +1,5 @@
 {
-  "name": "@repo/embedding-worker",
+  "name": "embedding-worker",
   "module": "index.ts",
   "type": "module",
   "private": true,

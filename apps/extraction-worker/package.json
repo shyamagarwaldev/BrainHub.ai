@@ -1,5 +1,5 @@
 {
-  "name": "@repo/extraction-worker",
+  "name": "extraction-worker",
   "module": "index.ts",
   "type": "module",
   "private": true,

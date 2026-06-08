@@ -36,7 +36,7 @@ export default function HeroContent() {
         </Badge>
       </div>
 
-      <h1 className="text-7xl font-bold leading-[0.95] tracking-tight">
+      <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight">
         Your knowledge.
         <br />
         Organized

@@ -32,7 +32,7 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur overflow-hidden">
       <Container>
         <div className="flex h-16 items-center justify-between">
           {/* Left */}

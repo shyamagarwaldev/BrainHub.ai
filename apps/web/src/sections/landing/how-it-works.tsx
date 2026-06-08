@@ -28,18 +28,16 @@ const steps = [
 
 export default function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-18">
+    <section id="how-it-works" className="py-24">
       <Container>
-        <div className="max-w-2xl">
-          <SectionHeader eyebrow="HOW IT WORKS" title="Simple 3-step process" />
-        </div>
+        <SectionHeader eyebrow="HOW IT WORKS" title="Simple 3-step process" />
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {steps.map((step) => (
             <StepCard
               key={step.step}
               step={step.step}
-              icon={<step.icon className="h-6 w-6" />}
+              icon={<step.icon className="h-5 w-5" />}
               title={step.title}
               description={step.description}
             />

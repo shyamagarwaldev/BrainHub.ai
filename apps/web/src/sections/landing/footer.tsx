@@ -1,5 +1,3 @@
-// sections/landing/footer.tsx
-
 import Container from "@/components/shared/container";
 import { GitBranchIcon, X, Mail } from "lucide-react";
 

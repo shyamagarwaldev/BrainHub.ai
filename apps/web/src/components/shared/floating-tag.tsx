@@ -7,10 +7,10 @@ type FloatingTagProps = {
 
 export default function FloatingTag({ icon, label }: FloatingTagProps) {
   return (
-    <div className="bg-card/90 border-border flex items-center gap-2 rounded-full border px-4 py-2 shadow-lg backdrop-blur-sm">
-      <div className="text-primary">{icon}</div>
+    <div className="bg-card/80 border-border flex items-center gap-2 rounded-lg border px-3 py-2 backdrop-blur-sm">
+      <div>{icon}</div>
 
-      <span className="text-sm font-medium">{label}</span>
+      <span className="text-xs leading-4">{label}</span>
     </div>
   );
 }

@@ -28,10 +28,10 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-8">
+    <section className="py-12">
       <Container>
-        <div className="bg-card border-border rounded-2xl border px-8 py-8">
-          <p className="text-muted-foreground mb-8 text-center text-xs">
+        <div className="bg-card border-border rounded-2xl border p-8">
+          <p className="text-muted-foreground mb-6 text-center text-sm">
             Trusted by developers, creators, researchers, and lifelong learners
           </p>
 

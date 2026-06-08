@@ -1,5 +1,3 @@
-// sections/landing/features-section.tsx
-
 import {
   Brain,
   MessageSquare,

@@ -15,20 +15,18 @@ export default function StepCard({
   description,
 }: StepCardProps) {
   return (
-    <div className="bg-card border-border rounded-2xl border p-6">
-      <div className="mb-6 flex items-center gap-3">
-        <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold">
+    <div className="bg-card border-border flex flex-col gap-3 rounded-2xl border p-6">
+      <div className="flex items-center justify-between">
+        <div className="bg-muted flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold">
           {step}
         </div>
 
         <IconBox>{icon}</IconBox>
       </div>
 
-      <h3 className="text-lg font-semibold">{title}</h3>
+      <h3 className="text-base font-semibold leading-6">{title}</h3>
 
-      <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-        {description}
-      </p>
+      <p className="text-muted-foreground text-sm leading-5">{description}</p>
     </div>
   );
 }

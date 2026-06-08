@@ -1,5 +1,3 @@
-// sections/landing/problem-section.tsx
-
 import { FileText, Clock3, Bookmark, Link2 } from "lucide-react";
 
 import Container from "@/components/shared/container";

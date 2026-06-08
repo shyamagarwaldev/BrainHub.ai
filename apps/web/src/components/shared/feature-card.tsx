@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import type { ReactNode } from "react";
 import IconBox from "./icon-box";
+
 type FeatureCardProps = {
   icon: ReactNode;
   title: string;
@@ -14,21 +14,19 @@ export default function FeatureCard({
   description,
 }: FeatureCardProps) {
   return (
-    <Card className="h-full">
-      <CardContent className="flex h-full flex-col p-8">
-        <IconBox>{icon}</IconBox>
+    <div className="bg-card border-border flex h-full flex-col rounded-2xl border p-6">
+      <IconBox>{icon}</IconBox>
 
-        <h3 className="mt-6 text-xl font-semibold tracking-tight">{title}</h3>
+      <h3 className="mt-4 text-base font-semibold leading-6">{title}</h3>
 
-        <p className="text-muted-foreground mt-3 flex-1 leading-relaxed">
-          {description}
-        </p>
+      <p className="text-muted-foreground mt-2 flex-1 text-sm leading-5">
+        {description}
+      </p>
 
-        <button className="text-primary mt-6 inline-flex items-center gap-2 text-sm font-medium">
-          Learn More
-          <ArrowRight className="h-4 w-4" />
-        </button>
-      </CardContent>
-    </Card>
+      <button className="text-primary mt-4 inline-flex items-center gap-1 text-sm">
+        Learn more
+        <ArrowRight className="h-3.5 w-3.5" />
+      </button>
+    </div>
   );
 }

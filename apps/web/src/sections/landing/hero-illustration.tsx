@@ -1,48 +1,54 @@
-import { Brain, MessageSquare, Lightbulb, FileText } from "lucide-react";
+import { FileText, Heart, Lightbulb, Search, StickyNote } from "lucide-react";
 
-import FloatingTag from "@/components/shared/floating-tag";
 import BrainGraphic from "@/components/shared/brain-graphic";
+import FloatingTag from "@/components/shared/floating-tag";
+import FallbackComponent from "@/components/shared/fallback";
 
 export default function HeroIllustration() {
   return (
-    <div className="relative flex min-h-125 items-center justify-center overflow-hidden rounded-3xl border border-border bg-card">
-      {/* Glow */}
-      <div className="bg-primary/20 absolute h-72 w-72 rounded-full blur-3xl" />
+    <div className="relative h-112.5 overflow-hidden rounded-2xl border border-border bg-card">
+      <BrainGraphic />
 
-      {/* Brain */}
-      <div className="relative z-10">
-        <BrainGraphic />
-      </div>
+      <div className="absolute inset-0 bg-background/50" />
 
-      {/* Top Left */}
-      <div className="absolute left-8 top-12">
+      {/* Left Side */}
+      <div className="absolute left-4 top-4 flex flex-col gap-2">
         <FloatingTag
-          icon={<Lightbulb className="h-4 w-4" />}
-          label="Project Ideas"
+          icon={<FallbackComponent className="size-4 text-[#ff6467]" />}
+          label="YouTube"
+        />
+
+        <FloatingTag
+          icon={<FallbackComponent className="size-4" />}
+          label="X / Threads"
+        />
+
+        <FloatingTag
+          icon={<FileText className="size-4 text-orange-500" />}
+          label="PDFs"
+        />
+
+        <FloatingTag
+          icon={<StickyNote className="size-4 text-green-500" />}
+          label="Notes"
         />
       </div>
 
-      {/* Top Right */}
-      <div className="absolute right-8 top-16">
+      {/* Right Side */}
+      <div className="absolute bottom-4 right-4 flex flex-col gap-2">
         <FloatingTag
-          icon={<MessageSquare className="h-4 w-4" />}
-          label="AI Summary"
+          icon={<Search className="size-4 text-primary" />}
+          label="Ask anything"
         />
-      </div>
 
-      {/* Bottom Left */}
-      <div className="absolute bottom-16 left-6">
         <FloatingTag
-          icon={<FileText className="h-4 w-4" />}
-          label="Research Notes"
+          icon={<Lightbulb className="size-4 text-orange-500" />}
+          label="Discover insights"
         />
-      </div>
 
-      {/* Bottom Right */}
-      <div className="absolute bottom-12 right-10">
         <FloatingTag
-          icon={<Brain className="h-4 w-4" />}
-          label="Knowledge Graph"
+          icon={<Heart className="size-4 text-primary" />}
+          label="Never forget"
         />
       </div>
     </div>

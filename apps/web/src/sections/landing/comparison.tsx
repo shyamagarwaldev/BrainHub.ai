@@ -1,8 +1,8 @@
-// sections/landing/comparison-section.tsx
-
-import { Check, Minus, ArrowRight } from "lucide-react";
+import { ArrowRight, Check, X } from "lucide-react";
 
 import Container from "@/components/shared/container";
+import SectionHeader from "@/components/shared/section-header";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -39,49 +39,46 @@ export default function ComparisonSection() {
     <section className="py-14">
       <Container>
         <div className="grid gap-6 lg:grid-cols-2">
-          {/* LEFT CARD */}
+          {/* Comparison Card */}
           <div className="bg-card border-border rounded-2xl border p-8">
-            <p className="text-primary text-sm font-semibold uppercase tracking-widest">
-              BUILT DIFFERENT
-            </p>
+            <SectionHeader
+              eyebrow="Built Different"
+              title="Not just another notes app"
+            />
 
-            <h2 className="mt-4 text-4xl font-bold tracking-tight">
-              Not just another notes app
-            </h2>
+            <div className="mt-8">
+              <div className="mb-3 grid grid-cols-3 gap-2 border-b border-border pb-3">
+                <span />
 
-            <div className="mt-10">
-              <div className="grid grid-cols-[1fr_100px_100px] pb-4 text-sm">
-                <div />
-
-                <div className="text-muted-foreground text-center">
+                <span className="text-center text-sm font-semibold">
                   Traditional
-                </div>
+                </span>
 
-                <div className="text-primary text-center font-medium">
+                <span className="text-primary text-center text-sm font-semibold">
                   Brainhub.ai
-                </div>
+                </span>
               </div>
-
-              <Separator />
 
               {comparisonRows.map((row) => (
                 <div key={row.feature}>
-                  <div className="grid grid-cols-[1fr_100px_100px] items-center py-4">
-                    <span className="text-muted-foreground">{row.feature}</span>
+                  <div className="grid grid-cols-3 items-center gap-2 py-3">
+                    <span className="text-muted-foreground text-sm">
+                      {row.feature}
+                    </span>
 
                     <div className="flex justify-center">
                       {row.traditional ? (
-                        <Check className="h-4 w-4" />
+                        <Check className="h-4 w-4 text-muted-foreground" />
                       ) : (
-                        <Minus className="text-muted-foreground h-4 w-4" />
+                        <X className="h-4 w-4 text-red-500" />
                       )}
                     </div>
 
                     <div className="flex justify-center">
                       {row.brainhub ? (
-                        <Check className="text-primary h-4 w-4" />
+                        <Check className="h-4 w-4 text-green-500" />
                       ) : (
-                        <Minus className="h-4 w-4" />
+                        <X className="h-4 w-4" />
                       )}
                     </div>
                   </div>
@@ -92,33 +89,33 @@ export default function ComparisonSection() {
             </div>
           </div>
 
-          {/* RIGHT CARD */}
+          {/* CTA Card */}
           <div className="relative overflow-hidden rounded-2xl border border-border">
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/5 to-background" />
+            <img
+              src="https://images.unsplash.com/photo-1613327986042-63d4425a1a5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200"
+              alt="Purple abstract"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
 
-            {/* Glow 1 */}
-            <div className="absolute -right-10 -top-10 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent" />
 
-            {/* Glow 2 */}
-            <div className="absolute bottom-0 left-0 h-60 w-60 rounded-full bg-primary/20 blur-3xl" />
-
-            {/* Content */}
-            <div className="relative flex h-full flex-col justify-center p-10">
-              <h2 className="max-w-sm text-4xl font-bold leading-tight tracking-tight">
+            <div className="relative flex h-full flex-col justify-center p-8">
+              <h2 className="text-3xl font-bold leading-tight">
                 Stop relearning things you already consumed.
               </h2>
 
-              <p className="text-muted-foreground mt-4 max-w-sm text-lg">
-                Build a knowledge base that compounds over time.
+              <p className="mt-4 text-sm text-foreground/80">
+                Build a knowledge base that compounds.
               </p>
 
-              <Button className="mt-8 w-fit">
-                Build Your Second Brain
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <div className="mt-6">
+                <Button>
+                  Build Your Second Brain
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
 
-              <p className="text-muted-foreground mt-4 text-sm">
+              <p className="mt-4 text-xs text-foreground/70">
                 Free 14-day trial. No credit card required.
               </p>
             </div>

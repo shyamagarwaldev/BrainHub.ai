@@ -94,11 +94,11 @@
   --popover-foreground: oklch(0.98 0.01 285);
 
   /* Purple Brand */
-  --primary: #7c3aed;
+  --primary: #7f22fe;
 
-  --ring: #7c3aed;
+  --ring: #7f22fe;
 
-  --sidebar-primary: #7c3aed;
+  --sidebar-primary: #7f22fe;
   --primary-foreground: oklch(0.98 0 0);
 
   --secondary: oklch(0.2 0.01 285);

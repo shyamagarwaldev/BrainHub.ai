@@ -1,9 +1,11 @@
-// sections/landing/navbar.tsx
+import { ArrowRight } from "lucide-react";
 
 import Container from "@/components/shared/container";
+import Logo from "@/components/shared/logo";
+
 import { Button } from "@/components/ui/button";
+
 import MobileMenu from "./mobile-menu";
-import { ArrowRight } from "lucide-react";
 
 const navItems = [
   {
@@ -30,38 +32,30 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <header className="border-b border-border">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
       <Container>
         <div className="flex h-16 items-center justify-between">
           {/* Left */}
-          <div className="flex items-center gap-12">
-            <a href="/" className="flex items-center gap-2">
-              <div className="bg-primary flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold text-primary-foreground">
-                B
-              </div>
 
-              <span className="text-sm font-medium">Brainhub.ai</span>
-            </a>
+          <Logo />
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-muted-foreground text-sm transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </div>
+          <nav className="hidden items-center gap-8 lg:flex">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-muted-foreground text-sm transition-colors hover:text-foreground"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
           {/* Right */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden items-center gap-4 lg:flex">
             <a
               href="/login"
-              className="text-sm text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground text-sm hover:text-foreground"
             >
               Log in
             </a>

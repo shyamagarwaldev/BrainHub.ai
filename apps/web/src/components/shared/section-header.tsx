@@ -10,17 +10,17 @@ export default function SectionHeader({
   description,
 }: SectionHeaderProps) {
   return (
-    <div className="space-y-2">
-      <p className="text-primary text-sm font-medium uppercase tracking-wider">
+    <div className="flex flex-col gap-2">
+      <span className="text-primary text-xs font-semibold uppercase tracking-widest">
         {eyebrow}
-      </p>
+      </span>
 
-      <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+      <h2 className="text-4xl font-bold leading-tight tracking-tight">
         {title}
       </h2>
 
       {description && (
-        <p className="text-muted-foreground text-lg leading-relaxed">
+        <p className="text-muted-foreground text-base leading-6">
           {description}
         </p>
       )}

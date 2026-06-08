@@ -25,12 +25,18 @@ const trustItems = [
 
 export default function HeroContent() {
   return (
-    <div className="flex flex-col justify-center">
-      <Badge variant="secondary" className="mb-6 w-fit p-3 text-primary">
-        {<Sparkles />}Your AI-powered knowledge system
-      </Badge>
+    <div className="flex flex-col gap-6">
+      <div>
+        <Badge
+          variant="secondary"
+          className="bg-primary/15 border-primary/30 text-primary rounded-full px-3 py-1"
+        >
+          <Sparkles className="mr-2 h-3.5 w-3.5" />
+          Your AI-powered knowledge system
+        </Badge>
+      </div>
 
-      <h1 className="max-w-xl text-5xl font-bold tracking-tight lg:text-7xl">
+      <h1 className="text-7xl font-bold leading-[0.95] tracking-tight">
         Your knowledge.
         <br />
         Organized
@@ -41,27 +47,26 @@ export default function HeroContent() {
         </span>
       </h1>
 
-      <p className="text-muted-foreground mt-6 max-w-lg text-lg leading-relaxed">
+      <p className="text-muted-foreground max-w-md text-base leading-6">
         Capture anything. AI understands it. Retrieve instantly. Build a second
         brain that never forgets.
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-4">
-        <Button size="lg" className="p-5">
-          Start For Free
-        </Button>
+      <div className="flex items-center gap-4">
+        <Button className="px-6 py-5">Start for Free</Button>
 
-        <Button size="lg" variant="outline" className="p-5">
+        <Button variant="outline" className="px-6 py-5">
           <Play className="mr-2 h-4 w-4" />
           Watch Demo
         </Button>
       </div>
 
-      <div className="text-muted-foreground mt-8 flex flex-wrap gap-6 text-sm">
+      <div className="flex flex-wrap items-center gap-8">
         {trustItems.map((item) => (
           <div key={item.title} className="flex items-center gap-2">
-            <item.icon className="h-4 w-4 text-primary" />
-            <span>{item.title}</span>
+            <item.icon className="text-primary h-4 w-4" />
+
+            <span className="text-muted-foreground text-sm">{item.title}</span>
           </div>
         ))}
       </div>

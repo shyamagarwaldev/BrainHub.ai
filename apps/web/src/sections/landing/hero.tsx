@@ -4,9 +4,9 @@ import HeroIllustration from "./hero-illustration";
 
 export default function Hero() {
   return (
-    <section className="py-20">
+    <section className="py-24">
       <Container>
-        <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
           <HeroContent />
 
           <HeroIllustration />
